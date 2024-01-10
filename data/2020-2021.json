@@ -1,0 +1,2947 @@
+{
+  "Golden State Warriors": [
+    {
+      "Name": "Stephen Curry",
+      "Team": "Golden State Warriors",
+      "Salary": 43006362
+    },
+    {
+      "Name": "Klay Thompson",
+      "Team": "Golden State Warriors",
+      "Salary": 35361360
+    },
+    {
+      "Name": "Andrew Wiggins",
+      "Team": "Golden State Warriors",
+      "Salary": 29542010
+    },
+    {
+      "Name": "Draymond Green",
+      "Team": "Golden State Warriors",
+      "Salary": 22246956
+    },
+    {
+      "Name": "Kelly Oubre",
+      "Team": "Golden State Warriors",
+      "Salary": 14375000
+    },
+    {
+      "Name": "James Wiseman",
+      "Team": "Golden State Warriors",
+      "Salary": 8730240
+    },
+    {
+      "Name": "Kevon Looney",
+      "Team": "Golden State Warriors",
+      "Salary": 4821429
+    },
+    {
+      "Name": "Kent Bazemore",
+      "Team": "Golden State Warriors",
+      "Salary": 2320044
+    },
+    {
+      "Name": "Jordan Poole",
+      "Team": "Golden State Warriors",
+      "Salary": 2063280
+    },
+    {
+      "Name": "Damion Lee",
+      "Team": "Golden State Warriors",
+      "Salary": 1762796
+    },
+    {
+      "Name": "Eric Paschall",
+      "Team": "Golden State Warriors",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Alen Smailagic",
+      "Team": "Golden State Warriors",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Mychal Mulder",
+      "Team": "Golden State Warriors",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Juan Toscano-Anderson",
+      "Team": "Golden State Warriors",
+      "Salary": 943963
+    },
+    {
+      "Name": "Shaun Livingston",
+      "Team": "Golden State Warriors",
+      "Salary": 666666
+    },
+    {
+      "Name": "Jordan Bell",
+      "Team": "Golden State Warriors",
+      "Salary": 592368
+    },
+    {
+      "Name": "Nico Mannion",
+      "Team": "Golden State Warriors",
+      "Salary": 449115
+    },
+    {
+      "Name": "Gary Payton II",
+      "Team": "Golden State Warriors",
+      "Salary": 249864
+    }
+  ],
+  "Phoenix Suns": [
+    {
+      "Name": "Chris Paul",
+      "Team": "Phoenix Suns",
+      "Salary": 41358814
+    },
+    {
+      "Name": "Devin Booker",
+      "Team": "Phoenix Suns",
+      "Salary": 29467800
+    },
+    {
+      "Name": "Deandre Ayton",
+      "Team": "Phoenix Suns",
+      "Salary": 10018200
+    },
+    {
+      "Name": "Jae Crowder",
+      "Team": "Phoenix Suns",
+      "Salary": 9258000
+    },
+    {
+      "Name": "Dario Saric",
+      "Team": "Phoenix Suns",
+      "Salary": 9250000
+    },
+    {
+      "Name": "Mikal Bridges",
+      "Team": "Phoenix Suns",
+      "Salary": 4359000
+    },
+    {
+      "Name": "Jalen Smith",
+      "Team": "Phoenix Suns",
+      "Salary": 4245720
+    },
+    {
+      "Name": "Cameron Johnson",
+      "Team": "Phoenix Suns",
+      "Salary": 4235160
+    },
+    {
+      "Name": "Jevon Carter",
+      "Team": "Phoenix Suns",
+      "Salary": 3925000
+    },
+    {
+      "Name": "E'Twaun Moore",
+      "Team": "Phoenix Suns",
+      "Salary": 2331593
+    },
+    {
+      "Name": "Langston Galloway",
+      "Team": "Phoenix Suns",
+      "Salary": 2028594
+    },
+    {
+      "Name": "Cameron Payne",
+      "Team": "Phoenix Suns",
+      "Salary": 1977011
+    },
+    {
+      "Name": "Abdel Nader",
+      "Team": "Phoenix Suns",
+      "Salary": 1752950
+    },
+    {
+      "Name": "Frank Kaminsky",
+      "Team": "Phoenix Suns",
+      "Salary": 1737145
+    },
+    {
+      "Name": "Torrey Craig",
+      "Team": "Phoenix Suns",
+      "Salary": 1678854
+    },
+    {
+      "Name": "Ty-Shon Alexander",
+      "Team": "Phoenix Suns",
+      "Salary": 449115
+    }
+  ],
+  "Washington Wizards": [
+    {
+      "Name": "Russell Westbrook",
+      "Team": "Washington Wizards",
+      "Salary": 41358814
+    },
+    {
+      "Name": "Bradley Beal",
+      "Team": "Washington Wizards",
+      "Salary": 28751774
+    },
+    {
+      "Name": "Davis Bertans",
+      "Team": "Washington Wizards",
+      "Salary": 15000000
+    },
+    {
+      "Name": "Thomas Bryant",
+      "Team": "Washington Wizards",
+      "Salary": 8333333
+    },
+    {
+      "Name": "Robin Lopez",
+      "Team": "Washington Wizards",
+      "Salary": 7300000
+    },
+    {
+      "Name": "Ishmael Smith",
+      "Team": "Washington Wizards",
+      "Salary": 6000000
+    },
+    {
+      "Name": "Rui Hachimura",
+      "Team": "Washington Wizards",
+      "Salary": 4692840
+    },
+    {
+      "Name": "Deni Avdija",
+      "Team": "Washington Wizards",
+      "Salary": 4469160
+    },
+    {
+      "Name": "Jerome Robinson",
+      "Team": "Washington Wizards",
+      "Salary": 3737520
+    },
+    {
+      "Name": "Chandler Hutchison",
+      "Team": "Washington Wizards",
+      "Salary": 2443440
+    },
+    {
+      "Name": "Raul Neto",
+      "Team": "Washington Wizards",
+      "Salary": 1882867
+    },
+    {
+      "Name": "Isaac Bonga",
+      "Team": "Washington Wizards",
+      "Salary": 1663861
+    },
+    {
+      "Name": "Daniel Gafford",
+      "Team": "Washington Wizards",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Anthony Gill",
+      "Team": "Washington Wizards",
+      "Salary": 898310
+    },
+    {
+      "Name": "Garrison Mathews",
+      "Team": "Washington Wizards",
+      "Salary": 688052
+    },
+    {
+      "Name": "Cassius Winston",
+      "Team": "Washington Wizards",
+      "Salary": 449115
+    },
+    {
+      "Name": "Anzejs Pasecniks",
+      "Team": "Washington Wizards",
+      "Salary": 374297
+    },
+    {
+      "Name": "Caleb Homesley",
+      "Team": "Washington Wizards",
+      "Salary": 20000
+    }
+  ],
+  "Brooklyn Nets": [
+    {
+      "Name": "James Harden",
+      "Team": "Brooklyn Nets",
+      "Salary": 41254920
+    },
+    {
+      "Name": "Kevin Durant",
+      "Team": "Brooklyn Nets",
+      "Salary": 40108950
+    },
+    {
+      "Name": "Blake Griffin",
+      "Team": "Brooklyn Nets",
+      "Salary": 33900241
+    },
+    {
+      "Name": "Kyrie Irving",
+      "Team": "Brooklyn Nets",
+      "Salary": 33722850
+    },
+    {
+      "Name": "LaMarcus Aldridge",
+      "Team": "Brooklyn Nets",
+      "Salary": 17628340
+    },
+    {
+      "Name": "Joe Harris",
+      "Team": "Brooklyn Nets",
+      "Salary": 16071429
+    },
+    {
+      "Name": "Spencer Dinwiddie",
+      "Team": "Brooklyn Nets",
+      "Salary": 11454048
+    },
+    {
+      "Name": "DeAndre Jordan",
+      "Team": "Brooklyn Nets",
+      "Salary": 10375678
+    },
+    {
+      "Name": "Jeff Green",
+      "Team": "Brooklyn Nets",
+      "Salary": 2564753
+    },
+    {
+      "Name": "Landry Shamet",
+      "Team": "Brooklyn Nets",
+      "Salary": 2090040
+    },
+    {
+      "Name": "Tyler Johnson",
+      "Team": "Brooklyn Nets",
+      "Salary": 2028594
+    },
+    {
+      "Name": "Timothe Luwawu",
+      "Team": "Brooklyn Nets",
+      "Salary": 1824003
+    },
+    {
+      "Name": "Bruce Brown",
+      "Team": "Brooklyn Nets",
+      "Salary": 1663861
+    },
+    {
+      "Name": "Nicolas Claxton",
+      "Team": "Brooklyn Nets",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Iman Shumpert",
+      "Team": "Brooklyn Nets",
+      "Salary": 803044
+    },
+    {
+      "Name": "Alize Johnson",
+      "Team": "Brooklyn Nets",
+      "Salary": 621587
+    },
+    {
+      "Name": "Reggie Perry",
+      "Team": "Brooklyn Nets",
+      "Salary": 489148
+    },
+    {
+      "Name": "Chris Chiozza",
+      "Team": "Brooklyn Nets",
+      "Salary": 449115
+    },
+    {
+      "Name": "Noah Vonleh",
+      "Team": "Brooklyn Nets",
+      "Salary": 427725
+    },
+    {
+      "Name": "Andre Roberson",
+      "Team": "Brooklyn Nets",
+      "Salary": 411639
+    },
+    {
+      "Name": "Mike James",
+      "Team": "Brooklyn Nets",
+      "Salary": 237648
+    }
+  ],
+  "Houston Rockets": [
+    {
+      "Name": "John Wall",
+      "Team": "Houston Rockets",
+      "Salary": 41254920
+    },
+    {
+      "Name": "Eric Gordon",
+      "Team": "Houston Rockets",
+      "Salary": 16869267
+    },
+    {
+      "Name": "Christian Wood",
+      "Team": "Houston Rockets",
+      "Salary": 13015874
+    },
+    {
+      "Name": "Kelly Olynyk",
+      "Team": "Houston Rockets",
+      "Salary": 12819650
+    },
+    {
+      "Name": "Dante Exum",
+      "Team": "Houston Rockets",
+      "Salary": 9600000
+    },
+    {
+      "Name": "DJ Augustin",
+      "Team": "Houston Rockets",
+      "Salary": 6666667
+    },
+    {
+      "Name": "Avery Bradley",
+      "Team": "Houston Rockets",
+      "Salary": 5635000
+    },
+    {
+      "Name": "DJ Wilson",
+      "Team": "Houston Rockets",
+      "Salary": 4548280
+    },
+    {
+      "Name": "Danuel House",
+      "Team": "Houston Rockets",
+      "Salary": 3717000
+    },
+    {
+      "Name": "Bruno Caboclo",
+      "Team": "Houston Rockets",
+      "Salary": 2028594
+    },
+    {
+      "Name": "David Nwaba",
+      "Team": "Houston Rockets",
+      "Salary": 1824003
+    },
+    {
+      "Name": "Kevin Porter",
+      "Team": "Houston Rockets",
+      "Salary": 1717981
+    },
+    {
+      "Name": "Sterling Brown",
+      "Team": "Houston Rockets",
+      "Salary": 1678854
+    },
+    {
+      "Name": "Chris Clemons",
+      "Team": "Houston Rockets",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Jae'Sean Tate",
+      "Team": "Houston Rockets",
+      "Salary": 1445697
+    },
+    {
+      "Name": "Khyri Thomas",
+      "Team": "Houston Rockets",
+      "Salary": 1061283
+    },
+    {
+      "Name": "KJ Martin",
+      "Team": "Houston Rockets",
+      "Salary": 898310
+    },
+    {
+      "Name": "Raymond Spalding",
+      "Team": "Houston Rockets",
+      "Salary": 289156
+    },
+    {
+      "Name": "Justin Patton",
+      "Team": "Houston Rockets",
+      "Salary": 267623
+    },
+    {
+      "Name": "Anthony Lamb",
+      "Team": "Houston Rockets",
+      "Salary": 215330
+    },
+    {
+      "Name": "Armoni Brooks",
+      "Team": "Houston Rockets",
+      "Salary": 135362
+    },
+    {
+      "Name": "Troy Williams",
+      "Team": "Houston Rockets",
+      "Salary": 122741
+    },
+    {
+      "Name": "Jerian Grant",
+      "Team": "Houston Rockets",
+      "Salary": 50000
+    },
+    {
+      "Name": "Cameron Oliver",
+      "Team": "Houston Rockets",
+      "Salary": 43070
+    },
+    {
+      "Name": "Cam Reynolds",
+      "Team": "Houston Rockets",
+      "Salary": 33299
+    }
+  ],
+  "Los Angeles Lakers": [
+    {
+      "Name": "LeBron James",
+      "Team": "Los Angeles Lakers",
+      "Salary": 39219566
+    },
+    {
+      "Name": "Anthony Davis",
+      "Team": "Los Angeles Lakers",
+      "Salary": 32742000
+    },
+    {
+      "Name": "Andre Drummond",
+      "Team": "Los Angeles Lakers",
+      "Salary": 28751774
+    },
+    {
+      "Name": "Dennis Schroeder",
+      "Team": "Los Angeles Lakers",
+      "Salary": 15500000
+    },
+    {
+      "Name": "Kentavious Caldwell-Pope",
+      "Team": "Los Angeles Lakers",
+      "Salary": 12073020
+    },
+    {
+      "Name": "Montrezl Harrell",
+      "Team": "Los Angeles Lakers",
+      "Salary": 9258000
+    },
+    {
+      "Name": "Luol Deng",
+      "Team": "Los Angeles Lakers",
+      "Salary": 5000000
+    },
+    {
+      "Name": "Wesley Matthews",
+      "Team": "Los Angeles Lakers",
+      "Salary": 3623000
+    },
+    {
+      "Name": "Kyle Kuzma",
+      "Team": "Los Angeles Lakers",
+      "Salary": 3562178
+    },
+    {
+      "Name": "Ben McLemore",
+      "Team": "Los Angeles Lakers",
+      "Salary": 2893630
+    },
+    {
+      "Name": "Alex Caruso",
+      "Team": "Los Angeles Lakers",
+      "Salary": 2750000
+    },
+    {
+      "Name": "Marc Gasol",
+      "Team": "Los Angeles Lakers",
+      "Salary": 2564753
+    },
+    {
+      "Name": "Jared Dudley",
+      "Team": "Los Angeles Lakers",
+      "Salary": 2564753
+    },
+    {
+      "Name": "Markieff Morris",
+      "Team": "Los Angeles Lakers",
+      "Salary": 2331593
+    },
+    {
+      "Name": "Alfonzo McKinnie",
+      "Team": "Los Angeles Lakers",
+      "Salary": 1762796
+    },
+    {
+      "Name": "Talen Horton-Tucker",
+      "Team": "Los Angeles Lakers",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Kostas Antetokounmpo",
+      "Team": "Los Angeles Lakers",
+      "Salary": 449115
+    },
+    {
+      "Name": "Devontae Cacok",
+      "Team": "Los Angeles Lakers",
+      "Salary": 449115
+    }
+  ],
+  "Los Angeles Clippers": [
+    {
+      "Name": "Paul George",
+      "Team": "Los Angeles Clippers",
+      "Salary": 35450412
+    },
+    {
+      "Name": "Kawhi Leonard",
+      "Team": "Los Angeles Clippers",
+      "Salary": 34379100
+    },
+    {
+      "Name": "Marcus Morris",
+      "Team": "Los Angeles Clippers",
+      "Salary": 14883721
+    },
+    {
+      "Name": "Patrick Beverley",
+      "Team": "Los Angeles Clippers",
+      "Salary": 13333333
+    },
+    {
+      "Name": "Nicolas Batum",
+      "Team": "Los Angeles Clippers",
+      "Salary": 11608231
+    },
+    {
+      "Name": "Serge Ibaka",
+      "Team": "Los Angeles Clippers",
+      "Salary": 9258000
+    },
+    {
+      "Name": "Rajon Rondo",
+      "Team": "Los Angeles Clippers",
+      "Salary": 7500000
+    },
+    {
+      "Name": "Ivica Zubac",
+      "Team": "Los Angeles Clippers",
+      "Salary": 7000000
+    },
+    {
+      "Name": "Luke Kennard",
+      "Team": "Los Angeles Clippers",
+      "Salary": 5273826
+    },
+    {
+      "Name": "Patrick Patterson",
+      "Team": "Los Angeles Clippers",
+      "Salary": 3814771
+    },
+    {
+      "Name": "DeMarcus Cousins",
+      "Team": "Los Angeles Clippers",
+      "Salary": 3051832
+    },
+    {
+      "Name": "Reggie Jackson",
+      "Team": "Los Angeles Clippers",
+      "Salary": 2331593
+    },
+    {
+      "Name": "Terance Mann",
+      "Team": "Los Angeles Clippers",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Daniel Oturu",
+      "Team": "Los Angeles Clippers",
+      "Salary": 898310
+    },
+    {
+      "Name": "Amir Coffey",
+      "Team": "Los Angeles Clippers",
+      "Salary": 578842
+    },
+    {
+      "Name": "Jay Scrubb",
+      "Team": "Los Angeles Clippers",
+      "Salary": 449115
+    },
+    {
+      "Name": "Yogi Ferrell",
+      "Team": "Los Angeles Clippers",
+      "Salary": 444149
+    },
+    {
+      "Name": "Malik Fitts",
+      "Team": "Los Angeles Clippers",
+      "Salary": 61528
+    }
+  ],
+  "Utah Jazz": [
+    {
+      "Name": "Mike Conley",
+      "Team": "Utah Jazz",
+      "Salary": 34502132
+    },
+    {
+      "Name": "Rudy Gobert",
+      "Team": "Utah Jazz",
+      "Salary": 27525281
+    },
+    {
+      "Name": "Bojan Bogdanovic",
+      "Team": "Utah Jazz",
+      "Salary": 17850000
+    },
+    {
+      "Name": "Jordan Clarkson",
+      "Team": "Utah Jazz",
+      "Salary": 11500000
+    },
+    {
+      "Name": "Joe Ingles",
+      "Team": "Utah Jazz",
+      "Salary": 10363637
+    },
+    {
+      "Name": "Derrick Favors",
+      "Team": "Utah Jazz",
+      "Salary": 9258000
+    },
+    {
+      "Name": "Royce O'Neale",
+      "Team": "Utah Jazz",
+      "Salary": 8500000
+    },
+    {
+      "Name": "Donovan Mitchell",
+      "Team": "Utah Jazz",
+      "Salary": 5195501
+    },
+    {
+      "Name": "Udoka Azubuike",
+      "Team": "Utah Jazz",
+      "Salary": 1977000
+    },
+    {
+      "Name": "Georges Niang",
+      "Team": "Utah Jazz",
+      "Salary": 1783557
+    },
+    {
+      "Name": "Miye Oni",
+      "Team": "Utah Jazz",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Juwan Morgan",
+      "Team": "Utah Jazz",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Matt Thomas",
+      "Team": "Utah Jazz",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Ersan Ilyasova",
+      "Team": "Utah Jazz",
+      "Salary": 1194542
+    },
+    {
+      "Name": "Elijah Hughes",
+      "Team": "Utah Jazz",
+      "Salary": 898310
+    },
+    {
+      "Name": "Jarrell Brantley",
+      "Team": "Utah Jazz",
+      "Salary": 510586
+    },
+    {
+      "Name": "Trent Forrest",
+      "Team": "Utah Jazz",
+      "Salary": 470690
+    }
+  ],
+  "Boston Celtics": [
+    {
+      "Name": "Kemba Walker",
+      "Team": "Boston Celtics",
+      "Salary": 34379100
+    },
+    {
+      "Name": "Jaylen Brown",
+      "Team": "Boston Celtics",
+      "Salary": 25035118
+    },
+    {
+      "Name": "Evan Fournier",
+      "Team": "Boston Celtics",
+      "Salary": 17150000
+    },
+    {
+      "Name": "Marcus Smart",
+      "Team": "Boston Celtics",
+      "Salary": 12946428
+    },
+    {
+      "Name": "Jayson Tatum",
+      "Team": "Boston Celtics",
+      "Salary": 9897120
+    },
+    {
+      "Name": "Tristan Thompson",
+      "Team": "Boston Celtics",
+      "Salary": 9258000
+    },
+    {
+      "Name": "Jabari Parker",
+      "Team": "Boston Celtics",
+      "Salary": 6930729
+    },
+    {
+      "Name": "Romeo Langford",
+      "Team": "Boston Celtics",
+      "Salary": 3631200
+    },
+    {
+      "Name": "Aaron Nesmith",
+      "Team": "Boston Celtics",
+      "Salary": 3458400
+    },
+    {
+      "Name": "Grant Williams",
+      "Team": "Boston Celtics",
+      "Salary": 2498760
+    },
+    {
+      "Name": "Luke Kornet",
+      "Team": "Boston Celtics",
+      "Salary": 2250000
+    },
+    {
+      "Name": "Payton Pritchard",
+      "Team": "Boston Celtics",
+      "Salary": 2035800
+    },
+    {
+      "Name": "Robert Williams",
+      "Team": "Boston Celtics",
+      "Salary": 2029920
+    },
+    {
+      "Name": "Semi Ojeleye",
+      "Team": "Boston Celtics",
+      "Salary": 1752950
+    },
+    {
+      "Name": "Carsen Edwards",
+      "Team": "Boston Celtics",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Guerschon Yabusele",
+      "Team": "Boston Celtics",
+      "Salary": 1039080
+    },
+    {
+      "Name": "Tremont Waters",
+      "Team": "Boston Celtics",
+      "Salary": 712278
+    },
+    {
+      "Name": "Tacko Fall",
+      "Team": "Boston Celtics",
+      "Salary": 653924
+    },
+    {
+      "Name": "Demetrius Jackson",
+      "Team": "Boston Celtics",
+      "Salary": 92857
+    }
+  ],
+  "Miami Heat": [
+    {
+      "Name": "Jimmy Butler",
+      "Team": "Miami Heat",
+      "Salary": 34379100
+    },
+    {
+      "Name": "Victor Oladipo",
+      "Team": "Miami Heat",
+      "Salary": 21000000
+    },
+    {
+      "Name": "Goran Dragic",
+      "Team": "Miami Heat",
+      "Salary": 18000000
+    },
+    {
+      "Name": "Andre Iguodala",
+      "Team": "Miami Heat",
+      "Salary": 15000000
+    },
+    {
+      "Name": "Trevor Ariza",
+      "Team": "Miami Heat",
+      "Salary": 12800000
+    },
+    {
+      "Name": "Nemanja Bjelica",
+      "Team": "Miami Heat",
+      "Salary": 7150000
+    },
+    {
+      "Name": "Ryan Anderson",
+      "Team": "Miami Heat",
+      "Salary": 5214583
+    },
+    {
+      "Name": "Bam Adebayo",
+      "Team": "Miami Heat",
+      "Salary": 5115492
+    },
+    {
+      "Name": "Tyler Herro",
+      "Team": "Miami Heat",
+      "Salary": 3822240
+    },
+    {
+      "Name": "Dewayne Dedmon",
+      "Team": "Miami Heat",
+      "Salary": 3447478
+    },
+    {
+      "Name": "Precious Achiuwa",
+      "Team": "Miami Heat",
+      "Salary": 2582160
+    },
+    {
+      "Name": "Udonis Haslem",
+      "Team": "Miami Heat",
+      "Salary": 2564753
+    },
+    {
+      "Name": "Duncan Robinson",
+      "Team": "Miami Heat",
+      "Salary": 1663861
+    },
+    {
+      "Name": "Kendrick Nunn",
+      "Team": "Miami Heat",
+      "Salary": 1663861
+    },
+    {
+      "Name": "KZ Okpala",
+      "Team": "Miami Heat",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Gabe Vincent",
+      "Team": "Miami Heat",
+      "Salary": 660750
+    },
+    {
+      "Name": "Max Strus",
+      "Team": "Miami Heat",
+      "Salary": 647098
+    },
+    {
+      "Name": "AJ Hammons",
+      "Team": "Miami Heat",
+      "Salary": 350087
+    }
+  ],
+  "Philadelphia 76ers": [
+    {
+      "Name": "Tobias Harris",
+      "Team": "Philadelphia 76ers",
+      "Salary": 34358850
+    },
+    {
+      "Name": "Ben Simmons",
+      "Team": "Philadelphia 76ers",
+      "Salary": 30559200
+    },
+    {
+      "Name": "Joel Embiid",
+      "Team": "Philadelphia 76ers",
+      "Salary": 29542010
+    },
+    {
+      "Name": "Danny Green",
+      "Team": "Philadelphia 76ers",
+      "Salary": 15365853
+    },
+    {
+      "Name": "George Hill",
+      "Team": "Philadelphia 76ers",
+      "Salary": 9590602
+    },
+    {
+      "Name": "Seth Curry",
+      "Team": "Philadelphia 76ers",
+      "Salary": 7834449
+    },
+    {
+      "Name": "Mike Scott",
+      "Team": "Philadelphia 76ers",
+      "Salary": 5005350
+    },
+    {
+      "Name": "Matisse Thybulle",
+      "Team": "Philadelphia 76ers",
+      "Salary": 2711280
+    },
+    {
+      "Name": "Dwight Howard",
+      "Team": "Philadelphia 76ers",
+      "Salary": 2564753
+    },
+    {
+      "Name": "Tyrese Maxey",
+      "Team": "Philadelphia 76ers",
+      "Salary": 2478840
+    },
+    {
+      "Name": "Gary Clark",
+      "Team": "Philadelphia 76ers",
+      "Salary": 2018458
+    },
+    {
+      "Name": "Furkan Korkmaz",
+      "Team": "Philadelphia 76ers",
+      "Salary": 1762796
+    },
+    {
+      "Name": "Shake Milton",
+      "Team": "Philadelphia 76ers",
+      "Salary": 1701593
+    },
+    {
+      "Name": "Isaiah Joe",
+      "Team": "Philadelphia 76ers",
+      "Salary": 898310
+    },
+    {
+      "Name": "Rayjon Tucker",
+      "Team": "Philadelphia 76ers",
+      "Salary": 693755
+    },
+    {
+      "Name": "Anthony Tolliver",
+      "Team": "Philadelphia 76ers",
+      "Salary": 614838
+    },
+    {
+      "Name": "Paul Reed",
+      "Team": "Philadelphia 76ers",
+      "Salary": 609128
+    },
+    {
+      "Name": "Mason Jones",
+      "Team": "Philadelphia 76ers",
+      "Salary": 424544
+    },
+    {
+      "Name": "Justin Anderson",
+      "Team": "Philadelphia 76ers",
+      "Salary": 125000
+    },
+    {
+      "Name": "Dakota Mathias",
+      "Team": "Philadelphia 76ers",
+      "Salary": 86132
+    }
+  ],
+  "Milwaukee Bucks": [
+    {
+      "Name": "Khris Middleton",
+      "Team": "Milwaukee Bucks",
+      "Salary": 33051724
+    },
+    {
+      "Name": "Giannis Antetokounmpo",
+      "Team": "Milwaukee Bucks",
+      "Salary": 27528088
+    },
+    {
+      "Name": "Jrue Holiday",
+      "Team": "Milwaukee Bucks",
+      "Salary": 27026011
+    },
+    {
+      "Name": "Brook Lopez",
+      "Team": "Milwaukee Bucks",
+      "Salary": 12697675
+    },
+    {
+      "Name": "PJ Tucker",
+      "Team": "Milwaukee Bucks",
+      "Salary": 7969537
+    },
+    {
+      "Name": "Justin Jackson",
+      "Team": "Milwaukee Bucks",
+      "Salary": 5109637
+    },
+    {
+      "Name": "Pat Connaughton",
+      "Team": "Milwaukee Bucks",
+      "Salary": 4938273
+    },
+    {
+      "Name": "Bobby Portis",
+      "Team": "Milwaukee Bucks",
+      "Salary": 3623000
+    },
+    {
+      "Name": "Jeff Teague",
+      "Team": "Milwaukee Bucks",
+      "Salary": 3372826
+    },
+    {
+      "Name": "Jon Leuer",
+      "Team": "Milwaukee Bucks",
+      "Salary": 3169348
+    },
+    {
+      "Name": "Donte DiVincenzo",
+      "Team": "Milwaukee Bucks",
+      "Salary": 3044160
+    },
+    {
+      "Name": "Bryn Forbes",
+      "Team": "Milwaukee Bucks",
+      "Salary": 2337145
+    },
+    {
+      "Name": "Spencer Hawes",
+      "Team": "Milwaukee Bucks",
+      "Salary": 2007058
+    },
+    {
+      "Name": "Larry Sanders",
+      "Team": "Milwaukee Bucks",
+      "Salary": 1865546
+    },
+    {
+      "Name": "Rodions Kurucs",
+      "Team": "Milwaukee Bucks",
+      "Salary": 1780152
+    },
+    {
+      "Name": "Thanasis Antetokounmpo",
+      "Team": "Milwaukee Bucks",
+      "Salary": 1701593
+    },
+    {
+      "Name": "Jordan Nwora",
+      "Team": "Milwaukee Bucks",
+      "Salary": 898310
+    },
+    {
+      "Name": "Sam Merrill",
+      "Team": "Milwaukee Bucks",
+      "Salary": 898310
+    },
+    {
+      "Name": "Mamadi Diakite",
+      "Team": "Milwaukee Bucks",
+      "Salary": 529341
+    },
+    {
+      "Name": "Jaylen Adams",
+      "Team": "Milwaukee Bucks",
+      "Salary": 449115
+    },
+    {
+      "Name": "Axel Toupane",
+      "Team": "Milwaukee Bucks",
+      "Salary": 196872
+    },
+    {
+      "Name": "Elijah Bryant",
+      "Team": "Milwaukee Bucks",
+      "Salary": 24611
+    }
+  ],
+  "Portland Trail Blazers": [
+    {
+      "Name": "Damian Lillard",
+      "Team": "Portland Trail Blazers",
+      "Salary": 31626953
+    },
+    {
+      "Name": "CJ McCollum",
+      "Team": "Portland Trail Blazers",
+      "Salary": 29354152
+    },
+    {
+      "Name": "Jusuf Nurkic",
+      "Team": "Portland Trail Blazers",
+      "Salary": 12888889
+    },
+    {
+      "Name": "Robert Covington",
+      "Team": "Portland Trail Blazers",
+      "Salary": 12138345
+    },
+    {
+      "Name": "Norman Powell",
+      "Team": "Portland Trail Blazers",
+      "Salary": 10865952
+    },
+    {
+      "Name": "Derrick Jones",
+      "Team": "Portland Trail Blazers",
+      "Salary": 9258000
+    },
+    {
+      "Name": "Zach Collins",
+      "Team": "Portland Trail Blazers",
+      "Salary": 5406255
+    },
+    {
+      "Name": "Enes Kanter",
+      "Team": "Portland Trail Blazers",
+      "Salary": 5005350
+    },
+    {
+      "Name": "TJ Leaf",
+      "Team": "Portland Trail Blazers",
+      "Salary": 4431423
+    },
+    {
+      "Name": "Andrew Nicholson",
+      "Team": "Portland Trail Blazers",
+      "Salary": 2844429
+    },
+    {
+      "Name": "Carmelo Anthony",
+      "Team": "Portland Trail Blazers",
+      "Salary": 2564753
+    },
+    {
+      "Name": "Anfernee Simons",
+      "Team": "Portland Trail Blazers",
+      "Salary": 2252040
+    },
+    {
+      "Name": "Nassir Little",
+      "Team": "Portland Trail Blazers",
+      "Salary": 2210640
+    },
+    {
+      "Name": "Harry Giles",
+      "Team": "Portland Trail Blazers",
+      "Salary": 1620564
+    },
+    {
+      "Name": "CJ Elleby",
+      "Team": "Portland Trail Blazers",
+      "Salary": 898310
+    },
+    {
+      "Name": "Rondae Hollis-Jefferson",
+      "Team": "Portland Trail Blazers",
+      "Salary": 502957
+    },
+    {
+      "Name": "Keljin Blevins",
+      "Team": "Portland Trail Blazers",
+      "Salary": 449115
+    }
+  ],
+  "Cleveland Cavaliers": [
+    {
+      "Name": "Kevin Love",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 31258256
+    },
+    {
+      "Name": "Taurean Prince",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 12250000
+    },
+    {
+      "Name": "Larry Nance Jr",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 11709091
+    },
+    {
+      "Name": "Cedi Osman",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 8840580
+    },
+    {
+      "Name": "Darius Garland",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 6720720
+    },
+    {
+      "Name": "Isaac Okoro",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 6400920
+    },
+    {
+      "Name": "Collin Sexton",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 4991880
+    },
+    {
+      "Name": "Jarrett Allen",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 3909902
+    },
+    {
+      "Name": "Mfiondu Kabengele",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 2432353
+    },
+    {
+      "Name": "Matthew Dellavedova",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 2174318
+    },
+    {
+      "Name": "Anderson Varejao",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 2141713
+    },
+    {
+      "Name": "Dylan Windler",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 2137440
+    },
+    {
+      "Name": "Damyean Dotson",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 2000000
+    },
+    {
+      "Name": "Quinn Cook",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 1981649
+    },
+    {
+      "Name": "Thon Maker",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 1737145
+    },
+    {
+      "Name": "Isaiah Hartenstein",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 1620564
+    },
+    {
+      "Name": "Dean Wade",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 1517981
+    },
+    {
+      "Name": "JR Smith",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 1456667
+    },
+    {
+      "Name": "Lamar Stevens",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 1000000
+    },
+    {
+      "Name": "Marques Bolden",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 449115
+    },
+    {
+      "Name": "Brodric Thomas",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 412202
+    },
+    {
+      "Name": "Jeremiah Martin",
+      "Team": "Cleveland Cavaliers",
+      "Salary": 58452
+    }
+  ],
+  "Toronto Raptors": [
+    {
+      "Name": "Pascal Siakam",
+      "Team": "Toronto Raptors",
+      "Salary": 30559200
+    },
+    {
+      "Name": "Kyle Lowry",
+      "Team": "Toronto Raptors",
+      "Salary": 30500000
+    },
+    {
+      "Name": "Fred VanVleet",
+      "Team": "Toronto Raptors",
+      "Salary": 21250000
+    },
+    {
+      "Name": "Rodney Hood",
+      "Team": "Toronto Raptors",
+      "Salary": 10047450
+    },
+    {
+      "Name": "Aron Baynes",
+      "Team": "Toronto Raptors",
+      "Salary": 7000000
+    },
+    {
+      "Name": "Chris Boucher",
+      "Team": "Toronto Raptors",
+      "Salary": 6500000
+    },
+    {
+      "Name": "Patrick McCaw",
+      "Team": "Toronto Raptors",
+      "Salary": 4000000
+    },
+    {
+      "Name": "Alex Len",
+      "Team": "Toronto Raptors",
+      "Salary": 3970648
+    },
+    {
+      "Name": "OG Anunoby",
+      "Team": "Toronto Raptors",
+      "Salary": 3872215
+    },
+    {
+      "Name": "Stanley Johnson",
+      "Team": "Toronto Raptors",
+      "Salary": 3804150
+    },
+    {
+      "Name": "Khem Birch",
+      "Team": "Toronto Raptors",
+      "Salary": 3011499
+    },
+    {
+      "Name": "Malachi Flynn",
+      "Team": "Toronto Raptors",
+      "Salary": 1950600
+    },
+    {
+      "Name": "DeAndre Bembry",
+      "Team": "Toronto Raptors",
+      "Salary": 1737145
+    },
+    {
+      "Name": "Gary Trent Jr",
+      "Team": "Toronto Raptors",
+      "Salary": 1663861
+    },
+    {
+      "Name": "Paul Watson",
+      "Team": "Toronto Raptors",
+      "Salary": 1445697
+    },
+    {
+      "Name": "Yuta Watanabe",
+      "Team": "Toronto Raptors",
+      "Salary": 737996
+    },
+    {
+      "Name": "Jalen Harris",
+      "Team": "Toronto Raptors",
+      "Salary": 449115
+    },
+    {
+      "Name": "Freddie Gillespie",
+      "Team": "Toronto Raptors",
+      "Salary": 363015
+    },
+    {
+      "Name": "Henry Ellenson",
+      "Team": "Toronto Raptors",
+      "Salary": 168983
+    }
+  ],
+  "New Orleans Pelicans": [
+    {
+      "Name": "Steven Adams",
+      "Team": "New Orleans Pelicans",
+      "Salary": 29592695
+    },
+    {
+      "Name": "Brandon Ingram",
+      "Team": "New Orleans Pelicans",
+      "Salary": 27285000
+    },
+    {
+      "Name": "Eric Bledsoe",
+      "Team": "New Orleans Pelicans",
+      "Salary": 16875000
+    },
+    {
+      "Name": "James Johnson",
+      "Team": "New Orleans Pelicans",
+      "Salary": 16047100
+    },
+    {
+      "Name": "Lonzo Ball",
+      "Team": "New Orleans Pelicans",
+      "Salary": 11003782
+    },
+    {
+      "Name": "Zion Williamson",
+      "Team": "New Orleans Pelicans",
+      "Salary": 10245480
+    },
+    {
+      "Name": "Jaxson Hayes",
+      "Team": "New Orleans Pelicans",
+      "Salary": 5105160
+    },
+    {
+      "Name": "Kira Lewis",
+      "Team": "New Orleans Pelicans",
+      "Salary": 3640200
+    },
+    {
+      "Name": "Josh Hart",
+      "Team": "New Orleans Pelicans",
+      "Salary": 3491159
+    },
+    {
+      "Name": "Nickeil Alexander-Walker",
+      "Team": "New Orleans Pelicans",
+      "Salary": 3113160
+    },
+    {
+      "Name": "Willy Hernangomez",
+      "Team": "New Orleans Pelicans",
+      "Salary": 1737145
+    },
+    {
+      "Name": "Wesley Iwundu",
+      "Team": "New Orleans Pelicans",
+      "Salary": 1678854
+    },
+    {
+      "Name": "Wenyen Gabriel",
+      "Team": "New Orleans Pelicans",
+      "Salary": 1620564
+    },
+    {
+      "Name": "Naji Marshall",
+      "Team": "New Orleans Pelicans",
+      "Salary": 538391
+    },
+    {
+      "Name": "Will Magnay",
+      "Team": "New Orleans Pelicans",
+      "Salary": 341481
+    },
+    {
+      "Name": "Isaiah Thomas",
+      "Team": "New Orleans Pelicans",
+      "Salary": 159698
+    },
+    {
+      "Name": "Didi Louzada",
+      "Team": "New Orleans Pelicans",
+      "Salary": 123056
+    },
+    {
+      "Name": "James Nunnally",
+      "Team": "New Orleans Pelicans",
+      "Salary": 107674
+    }
+  ],
+  "Denver Nuggets": [
+    {
+      "Name": "Nikola Jokic",
+      "Team": "Denver Nuggets",
+      "Salary": 29542010
+    },
+    {
+      "Name": "Jamal Murray",
+      "Team": "Denver Nuggets",
+      "Salary": 27285000
+    },
+    {
+      "Name": "Aaron Gordon",
+      "Team": "Denver Nuggets",
+      "Salary": 18136364
+    },
+    {
+      "Name": "Will Barton",
+      "Team": "Denver Nuggets",
+      "Salary": 13723214
+    },
+    {
+      "Name": "Paul Millsap",
+      "Team": "Denver Nuggets",
+      "Salary": 10100000
+    },
+    {
+      "Name": "JaMychal Green",
+      "Team": "Denver Nuggets",
+      "Salary": 7199760
+    },
+    {
+      "Name": "JaVale McGee",
+      "Team": "Denver Nuggets",
+      "Salary": 4200000
+    },
+    {
+      "Name": "Austin Rivers",
+      "Team": "Denver Nuggets",
+      "Salary": 3929049
+    },
+    {
+      "Name": "Michael Porter",
+      "Team": "Denver Nuggets",
+      "Salary": 3550800
+    },
+    {
+      "Name": "Facundo Campazzo",
+      "Team": "Denver Nuggets",
+      "Salary": 3200000
+    },
+    {
+      "Name": "Zeke Nnaji",
+      "Team": "Denver Nuggets",
+      "Salary": 2379840
+    },
+    {
+      "Name": "Bol Bol",
+      "Team": "Denver Nuggets",
+      "Salary": 2058240
+    },
+    {
+      "Name": "PJ Dozier",
+      "Team": "Denver Nuggets",
+      "Salary": 1762796
+    },
+    {
+      "Name": "Monte Morris",
+      "Team": "Denver Nuggets",
+      "Salary": 1723707
+    },
+    {
+      "Name": "Vlatko Cancar",
+      "Team": "Denver Nuggets",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Shaquille Harrison",
+      "Team": "Denver Nuggets",
+      "Salary": 915048
+    },
+    {
+      "Name": "Markus Howard",
+      "Team": "Denver Nuggets",
+      "Salary": 535294
+    },
+    {
+      "Name": "Greg Whittington",
+      "Team": "Denver Nuggets",
+      "Salary": 332252
+    }
+  ],
+  "Dallas Mavericks": [
+    {
+      "Name": "Kristaps Porzingis",
+      "Team": "Dallas Mavericks",
+      "Salary": 29467800
+    },
+    {
+      "Name": "Tim Hardaway Jr",
+      "Team": "Dallas Mavericks",
+      "Salary": 18975000
+    },
+    {
+      "Name": "JJ Redick",
+      "Team": "Dallas Mavericks",
+      "Salary": 13013700
+    },
+    {
+      "Name": "Dwight Powell",
+      "Team": "Dallas Mavericks",
+      "Salary": 11080125
+    },
+    {
+      "Name": "Josh Richardson",
+      "Team": "Dallas Mavericks",
+      "Salary": 10865952
+    },
+    {
+      "Name": "Maxi Kleber",
+      "Team": "Dallas Mavericks",
+      "Salary": 8475000
+    },
+    {
+      "Name": "Luka Doncic",
+      "Team": "Dallas Mavericks",
+      "Salary": 8049360
+    },
+    {
+      "Name": "Willie Cauley-Stein",
+      "Team": "Dallas Mavericks",
+      "Salary": 4100000
+    },
+    {
+      "Name": "Dorian Finney-Smith",
+      "Team": "Dallas Mavericks",
+      "Salary": 4000000
+    },
+    {
+      "Name": "Nicolo Melli",
+      "Team": "Dallas Mavericks",
+      "Salary": 3897436
+    },
+    {
+      "Name": "Boban Marjanovic",
+      "Team": "Dallas Mavericks",
+      "Salary": 3500000
+    },
+    {
+      "Name": "Trey Burke",
+      "Team": "Dallas Mavericks",
+      "Salary": 3000000
+    },
+    {
+      "Name": "Josh Green",
+      "Team": "Dallas Mavericks",
+      "Salary": 2816760
+    },
+    {
+      "Name": "Jose Juan Barea",
+      "Team": "Dallas Mavericks",
+      "Salary": 2564753
+    },
+    {
+      "Name": "Jalen Brunson",
+      "Team": "Dallas Mavericks",
+      "Salary": 1663861
+    },
+    {
+      "Name": "Tyrell Terry",
+      "Team": "Dallas Mavericks",
+      "Salary": 1289846
+    },
+    {
+      "Name": "Tyler Bey",
+      "Team": "Dallas Mavericks",
+      "Salary": 449115
+    },
+    {
+      "Name": "Nate Hinton",
+      "Team": "Dallas Mavericks",
+      "Salary": 449115
+    }
+  ],
+  "Minnesota Timberwolves": [
+    {
+      "Name": "Karl-Anthony Towns",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 29467800
+    },
+    {
+      "Name": "D'Angelo Russell",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 28649250
+    },
+    {
+      "Name": "Ricky Rubio",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 17000000
+    },
+    {
+      "Name": "Malik Beasley",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 13425895
+    },
+    {
+      "Name": "Anthony Edwards",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 9757440
+    },
+    {
+      "Name": "Juan Hernangomez",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 6493000
+    },
+    {
+      "Name": "Jarrett Culver",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 6104280
+    },
+    {
+      "Name": "Ed Davis",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 5005350
+    },
+    {
+      "Name": "Jake Layman",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 3761085
+    },
+    {
+      "Name": "Josh Okogie",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 2651040
+    },
+    {
+      "Name": "Jaden McDaniels",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 1964760
+    },
+    {
+      "Name": "Jarred Vanderbilt",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 1663861
+    },
+    {
+      "Name": "Naz Reid",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Jaylen Nowell",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Cole Aldrich",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 685340
+    },
+    {
+      "Name": "Jordan McLaughlin",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 503760
+    },
+    {
+      "Name": "Ashton Hagans",
+      "Team": "Minnesota Timberwolves",
+      "Salary": 166111
+    }
+  ],
+  "Charlotte Hornets": [
+    {
+      "Name": "Gordon Hayward",
+      "Team": "Charlotte Hornets",
+      "Salary": 28500000
+    },
+    {
+      "Name": "Terry Rozier",
+      "Team": "Charlotte Hornets",
+      "Salary": 18900000
+    },
+    {
+      "Name": "Cody Zeller",
+      "Team": "Charlotte Hornets",
+      "Salary": 15415730
+    },
+    {
+      "Name": "LaMelo Ball",
+      "Team": "Charlotte Hornets",
+      "Salary": 7839960
+    },
+    {
+      "Name": "Malik Monk",
+      "Team": "Charlotte Hornets",
+      "Salary": 5345687
+    },
+    {
+      "Name": "PJ Washington",
+      "Team": "Charlotte Hornets",
+      "Salary": 4023600
+    },
+    {
+      "Name": "Miles Bridges",
+      "Team": "Charlotte Hornets",
+      "Salary": 3934320
+    },
+    {
+      "Name": "Bismack Biyombo",
+      "Team": "Charlotte Hornets",
+      "Salary": 3500000
+    },
+    {
+      "Name": "Brad Wanamaker",
+      "Team": "Charlotte Hornets",
+      "Salary": 2250000
+    },
+    {
+      "Name": "Devonte Graham",
+      "Team": "Charlotte Hornets",
+      "Salary": 1663861
+    },
+    {
+      "Name": "Cody Martin",
+      "Team": "Charlotte Hornets",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Caleb Martin",
+      "Team": "Charlotte Hornets",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Jalen McDaniels",
+      "Team": "Charlotte Hornets",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Vernon Carey",
+      "Team": "Charlotte Hornets",
+      "Salary": 1350000
+    },
+    {
+      "Name": "Nick Richards",
+      "Team": "Charlotte Hornets",
+      "Salary": 1000000
+    },
+    {
+      "Name": "Grant Riller",
+      "Team": "Charlotte Hornets",
+      "Salary": 449115
+    },
+    {
+      "Name": "Nate Darling",
+      "Team": "Charlotte Hornets",
+      "Salary": 449115
+    }
+  ],
+  "Orlando Magic": [
+    {
+      "Name": "Otto Porter",
+      "Team": "Orlando Magic",
+      "Salary": 28489239
+    },
+    {
+      "Name": "Gary Harris",
+      "Team": "Orlando Magic",
+      "Salary": 19610714
+    },
+    {
+      "Name": "Terrence Ross",
+      "Team": "Orlando Magic",
+      "Salary": 13500000
+    },
+    {
+      "Name": "Markelle Fultz",
+      "Team": "Orlando Magic",
+      "Salary": 12288697
+    },
+    {
+      "Name": "Jonathan Isaac",
+      "Team": "Orlando Magic",
+      "Salary": 7362565
+    },
+    {
+      "Name": "Mo Bamba",
+      "Team": "Orlando Magic",
+      "Salary": 5969040
+    },
+    {
+      "Name": "Timofey Mozgov",
+      "Team": "Orlando Magic",
+      "Salary": 5573333
+    },
+    {
+      "Name": "Wendell Carter",
+      "Team": "Orlando Magic",
+      "Salary": 5448840
+    },
+    {
+      "Name": "Michael Carter-Williams",
+      "Team": "Orlando Magic",
+      "Salary": 3300000
+    },
+    {
+      "Name": "James Ennis",
+      "Team": "Orlando Magic",
+      "Salary": 3300000
+    },
+    {
+      "Name": "Cole Anthony",
+      "Team": "Orlando Magic",
+      "Salary": 3285120
+    },
+    {
+      "Name": "Chuma Okeke",
+      "Team": "Orlando Magic",
+      "Salary": 3121080
+    },
+    {
+      "Name": "Moritz Wagner",
+      "Team": "Orlando Magic",
+      "Salary": 2383915
+    },
+    {
+      "Name": "RJ Hampton",
+      "Team": "Orlando Magic",
+      "Salary": 2193480
+    },
+    {
+      "Name": "Ignas Brazdeikis",
+      "Team": "Orlando Magic",
+      "Salary": 1686315
+    },
+    {
+      "Name": "Dwayne Bacon",
+      "Team": "Orlando Magic",
+      "Salary": 1678854
+    },
+    {
+      "Name": "Sindarius Thornwell",
+      "Team": "Orlando Magic",
+      "Salary": 1235889
+    },
+    {
+      "Name": "Donta Hall",
+      "Team": "Orlando Magic",
+      "Salary": 376276
+    },
+    {
+      "Name": "Karim Mane",
+      "Team": "Orlando Magic",
+      "Salary": 344557
+    },
+    {
+      "Name": "Chasson Randle",
+      "Team": "Orlando Magic",
+      "Salary": 279927
+    },
+    {
+      "Name": "Jordan Bone",
+      "Team": "Orlando Magic",
+      "Salary": 135350
+    }
+  ],
+  "San Antonio Spurs": [
+    {
+      "Name": "DeMar DeRozan",
+      "Team": "San Antonio Spurs",
+      "Salary": 27739975
+    },
+    {
+      "Name": "Gorgui Dieng",
+      "Team": "San Antonio Spurs",
+      "Salary": 17587688
+    },
+    {
+      "Name": "Rudy Gay",
+      "Team": "San Antonio Spurs",
+      "Salary": 14500000
+    },
+    {
+      "Name": "Dejounte Murray",
+      "Team": "San Antonio Spurs",
+      "Salary": 14286000
+    },
+    {
+      "Name": "Patrick Mills",
+      "Team": "San Antonio Spurs",
+      "Salary": 13535714
+    },
+    {
+      "Name": "Jakob Poeltl",
+      "Team": "San Antonio Spurs",
+      "Salary": 8101852
+    },
+    {
+      "Name": "DeMarre Carroll",
+      "Team": "San Antonio Spurs",
+      "Salary": 6119676
+    },
+    {
+      "Name": "Trey Lyles",
+      "Team": "San Antonio Spurs",
+      "Salary": 5500000
+    },
+    {
+      "Name": "Devin Vassell",
+      "Team": "San Antonio Spurs",
+      "Salary": 4033440
+    },
+    {
+      "Name": "Derrick White",
+      "Team": "San Antonio Spurs",
+      "Salary": 3516284
+    },
+    {
+      "Name": "Lonnie Walker",
+      "Team": "San Antonio Spurs",
+      "Salary": 2895720
+    },
+    {
+      "Name": "Luka Samanic",
+      "Team": "San Antonio Spurs",
+      "Salary": 2824320
+    },
+    {
+      "Name": "Keldon Johnson",
+      "Team": "San Antonio Spurs",
+      "Salary": 2048040
+    },
+    {
+      "Name": "Marquese Chriss",
+      "Team": "San Antonio Spurs",
+      "Salary": 1824003
+    },
+    {
+      "Name": "Drew Eubanks",
+      "Team": "San Antonio Spurs",
+      "Salary": 1620564
+    },
+    {
+      "Name": "DaQuan Jeffries",
+      "Team": "San Antonio Spurs",
+      "Salary": 1445697
+    },
+    {
+      "Name": "Tre Jones",
+      "Team": "San Antonio Spurs",
+      "Salary": 898310
+    },
+    {
+      "Name": "Quinndary Weatherspoon",
+      "Team": "San Antonio Spurs",
+      "Salary": 449115
+    },
+    {
+      "Name": "Keita Bates-Diop",
+      "Team": "San Antonio Spurs",
+      "Salary": 449115
+    }
+  ],
+  "Oklahoma City Thunder": [
+    {
+      "Name": "Al Horford",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 27500000
+    },
+    {
+      "Name": "Meyers Leonard",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 9400000
+    },
+    {
+      "Name": "Darius Miller",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 7000000
+    },
+    {
+      "Name": "Shai Gilgeous-Alexander",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 4141320
+    },
+    {
+      "Name": "Gabriel Deck",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 3870370
+    },
+    {
+      "Name": "Tony Bradley",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 3542060
+    },
+    {
+      "Name": "Aleksej Pokusevski",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 2964840
+    },
+    {
+      "Name": "Darius Bazley",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 2399160
+    },
+    {
+      "Name": "Ty Jerome",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 2303040
+    },
+    {
+      "Name": "Mike Muscala",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 2283034
+    },
+    {
+      "Name": "Kenrich Williams",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 2000000
+    },
+    {
+      "Name": "Theo Maledon",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 2000000
+    },
+    {
+      "Name": "Sviatoslav Mykhailiuk",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 1663861
+    },
+    {
+      "Name": "Josh Gray",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 1620564
+    },
+    {
+      "Name": "Luguentz Dort",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Isaiah Roby",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Admiral Schofield",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Zylan Cheatham",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 1445697
+    },
+    {
+      "Name": "Moses Brown",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 1250000
+    },
+    {
+      "Name": "Kyle Singler",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 999200
+    },
+    {
+      "Name": "Frank Jackson",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 699115
+    },
+    {
+      "Name": "Josh Hall",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 449115
+    },
+    {
+      "Name": "Charlie Brown",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 217844
+    },
+    {
+      "Name": "Justin Robinson",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 198040
+    },
+    {
+      "Name": "Jaylen Hoard",
+      "Team": "Oklahoma City Thunder",
+      "Salary": 129209
+    }
+  ],
+  "Chicago Bulls": [
+    {
+      "Name": "Nikola Vucevic",
+      "Team": "Chicago Bulls",
+      "Salary": 26000000
+    },
+    {
+      "Name": "Zach LaVine",
+      "Team": "Chicago Bulls",
+      "Salary": 19500000
+    },
+    {
+      "Name": "Thaddeus Young",
+      "Team": "Chicago Bulls",
+      "Salary": 13545000
+    },
+    {
+      "Name": "Tomas Satoransky",
+      "Team": "Chicago Bulls",
+      "Salary": 10000000
+    },
+    {
+      "Name": "Al-Farouq Aminu",
+      "Team": "Chicago Bulls",
+      "Salary": 9720900
+    },
+    {
+      "Name": "Cristiano Felicio",
+      "Team": "Chicago Bulls",
+      "Salary": 7529020
+    },
+    {
+      "Name": "Patrick Williams",
+      "Team": "Chicago Bulls",
+      "Salary": 7068360
+    },
+    {
+      "Name": "Lauri Markkanen",
+      "Team": "Chicago Bulls",
+      "Salary": 6731508
+    },
+    {
+      "Name": "Coby White",
+      "Team": "Chicago Bulls",
+      "Salary": 5572680
+    },
+    {
+      "Name": "Daniel Theis",
+      "Team": "Chicago Bulls",
+      "Salary": 5000000
+    },
+    {
+      "Name": "Garrett Temple",
+      "Team": "Chicago Bulls",
+      "Salary": 4767000
+    },
+    {
+      "Name": "Denzel Valentine",
+      "Team": "Chicago Bulls",
+      "Salary": 4642800
+    },
+    {
+      "Name": "Troy Brown",
+      "Team": "Chicago Bulls",
+      "Salary": 3372840
+    },
+    {
+      "Name": "Ryan Arcidiacono",
+      "Team": "Chicago Bulls",
+      "Salary": 3000000
+    },
+    {
+      "Name": "Javonte Green",
+      "Team": "Chicago Bulls",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Devon Dotson",
+      "Team": "Chicago Bulls",
+      "Salary": 449115
+    },
+    {
+      "Name": "Adam Mokoka",
+      "Team": "Chicago Bulls",
+      "Salary": 449115
+    }
+  ],
+  "Sacramento Kings": [
+    {
+      "Name": "Buddy Hield",
+      "Team": "Sacramento Kings",
+      "Salary": 24931817
+    },
+    {
+      "Name": "Harrison Barnes",
+      "Team": "Sacramento Kings",
+      "Salary": 22215909
+    },
+    {
+      "Name": "Delon Wright",
+      "Team": "Sacramento Kings",
+      "Salary": 9000000
+    },
+    {
+      "Name": "Marvin Bagley",
+      "Team": "Sacramento Kings",
+      "Salary": 8963640
+    },
+    {
+      "Name": "De'Aaron Fox",
+      "Team": "Sacramento Kings",
+      "Salary": 8099627
+    },
+    {
+      "Name": "Richaun Holmes",
+      "Team": "Sacramento Kings",
+      "Salary": 5005350
+    },
+    {
+      "Name": "Tyrese Haliburton",
+      "Team": "Sacramento Kings",
+      "Salary": 3831840
+    },
+    {
+      "Name": "Moe Harkless",
+      "Team": "Sacramento Kings",
+      "Salary": 3623000
+    },
+    {
+      "Name": "Hassan Whiteside",
+      "Team": "Sacramento Kings",
+      "Salary": 2320044
+    },
+    {
+      "Name": "Justin James",
+      "Team": "Sacramento Kings",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Terence Davis",
+      "Team": "Sacramento Kings",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Chris Silva",
+      "Team": "Sacramento Kings",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Robert Woodard",
+      "Team": "Sacramento Kings",
+      "Salary": 1500000
+    },
+    {
+      "Name": "Damian Jones",
+      "Team": "Sacramento Kings",
+      "Salary": 1487284
+    },
+    {
+      "Name": "Glenn Robinson III",
+      "Team": "Sacramento Kings",
+      "Salary": 1165322
+    },
+    {
+      "Name": "Jahmi'us Ramsey",
+      "Team": "Sacramento Kings",
+      "Salary": 1000000
+    },
+    {
+      "Name": "Chimezie Metu",
+      "Team": "Sacramento Kings",
+      "Salary": 910895
+    },
+    {
+      "Name": "Kyle Guy",
+      "Team": "Sacramento Kings",
+      "Salary": 537888
+    },
+    {
+      "Name": "Louis King",
+      "Team": "Sacramento Kings",
+      "Salary": 49222
+    }
+  ],
+  "Indiana Pacers": [
+    {
+      "Name": "Malcolm Brogdon",
+      "Team": "Indiana Pacers",
+      "Salary": 20700000
+    },
+    {
+      "Name": "Domantas Sabonis",
+      "Team": "Indiana Pacers",
+      "Salary": 19800000
+    },
+    {
+      "Name": "Myles Turner",
+      "Team": "Indiana Pacers",
+      "Salary": 18000000
+    },
+    {
+      "Name": "Caris LeVert",
+      "Team": "Indiana Pacers",
+      "Salary": 16203704
+    },
+    {
+      "Name": "TJ Warren",
+      "Team": "Indiana Pacers",
+      "Salary": 12000000
+    },
+    {
+      "Name": "Jeremy Lamb",
+      "Team": "Indiana Pacers",
+      "Salary": 10500000
+    },
+    {
+      "Name": "Doug McDermott",
+      "Team": "Indiana Pacers",
+      "Salary": 7333333
+    },
+    {
+      "Name": "Justin Holiday",
+      "Team": "Indiana Pacers",
+      "Salary": 5720400
+    },
+    {
+      "Name": "TJ McConnell",
+      "Team": "Indiana Pacers",
+      "Salary": 3500000
+    },
+    {
+      "Name": "Goga Bitadze",
+      "Team": "Indiana Pacers",
+      "Salary": 2957520
+    },
+    {
+      "Name": "Aaron Holiday",
+      "Team": "Indiana Pacers",
+      "Salary": 2345640
+    },
+    {
+      "Name": "Monta Ellis",
+      "Team": "Indiana Pacers",
+      "Salary": 2245400
+    },
+    {
+      "Name": "Edmond Sumner",
+      "Team": "Indiana Pacers",
+      "Salary": 2160000
+    },
+    {
+      "Name": "JaKarr Sampson",
+      "Team": "Indiana Pacers",
+      "Salary": 1882867
+    },
+    {
+      "Name": "Jalen Lecque",
+      "Team": "Indiana Pacers",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Kelan Martin",
+      "Team": "Indiana Pacers",
+      "Salary": 1445697
+    },
+    {
+      "Name": "Oshae Brissett",
+      "Team": "Indiana Pacers",
+      "Salary": 1255493
+    },
+    {
+      "Name": "Cassius Stanley",
+      "Team": "Indiana Pacers",
+      "Salary": 470690
+    },
+    {
+      "Name": "Brian Bowen",
+      "Team": "Indiana Pacers",
+      "Salary": 375321
+    },
+    {
+      "Name": "Amida Brimah",
+      "Team": "Indiana Pacers",
+      "Salary": 123056
+    }
+  ],
+  "New York Knicks": [
+    {
+      "Name": "Julius Randle",
+      "Team": "New York Knicks",
+      "Salary": 19845000
+    },
+    {
+      "Name": "RJ Barrett",
+      "Team": "New York Knicks",
+      "Salary": 8231760
+    },
+    {
+      "Name": "Derrick Rose",
+      "Team": "New York Knicks",
+      "Salary": 7682926
+    },
+    {
+      "Name": "Joakim Noah",
+      "Team": "New York Knicks",
+      "Salary": 6431666
+    },
+    {
+      "Name": "Frank Ntilikina",
+      "Team": "New York Knicks",
+      "Salary": 6176578
+    },
+    {
+      "Name": "Alec Burks",
+      "Team": "New York Knicks",
+      "Salary": 6000000
+    },
+    {
+      "Name": "Nerlens Noel",
+      "Team": "New York Knicks",
+      "Salary": 5000000
+    },
+    {
+      "Name": "Obi Toppin",
+      "Team": "New York Knicks",
+      "Salary": 4862040
+    },
+    {
+      "Name": "Elfrid Payton",
+      "Team": "New York Knicks",
+      "Salary": 4767000
+    },
+    {
+      "Name": "Kevin Knox",
+      "Team": "New York Knicks",
+      "Salary": 4588680
+    },
+    {
+      "Name": "Reggie Bullock",
+      "Team": "New York Knicks",
+      "Salary": 4200000
+    },
+    {
+      "Name": "Terrance Ferguson",
+      "Team": "New York Knicks",
+      "Salary": 3944013
+    },
+    {
+      "Name": "Luca Vildoza",
+      "Team": "New York Knicks",
+      "Salary": 3500000
+    },
+    {
+      "Name": "Taj Gibson",
+      "Team": "New York Knicks",
+      "Salary": 3283684
+    },
+    {
+      "Name": "Vincent Poirier",
+      "Team": "New York Knicks",
+      "Salary": 2619207
+    },
+    {
+      "Name": "Immanuel Quickley",
+      "Team": "New York Knicks",
+      "Salary": 2105520
+    },
+    {
+      "Name": "Jacob Evans",
+      "Team": "New York Knicks",
+      "Salary": 2017320
+    },
+    {
+      "Name": "Omari Spellman",
+      "Team": "New York Knicks",
+      "Salary": 1988280
+    },
+    {
+      "Name": "Mitchell Robinson",
+      "Team": "New York Knicks",
+      "Salary": 1663861
+    },
+    {
+      "Name": "Norvel Pelle",
+      "Team": "New York Knicks",
+      "Salary": 1014905
+    },
+    {
+      "Name": "Theo Pinson",
+      "Team": "New York Knicks",
+      "Salary": 802182
+    },
+    {
+      "Name": "Jared Harper",
+      "Team": "New York Knicks",
+      "Salary": 520487
+    },
+    {
+      "Name": "John Henson",
+      "Team": "New York Knicks",
+      "Salary": 158907
+    },
+    {
+      "Name": "Tyler Hall",
+      "Team": "New York Knicks",
+      "Salary": 25000
+    },
+    {
+      "Name": "Andrew White",
+      "Team": "New York Knicks",
+      "Salary": 25000
+    }
+  ],
+  "Atlanta Hawks": [
+    {
+      "Name": "Danilo Gallinari",
+      "Team": "Atlanta Hawks",
+      "Salary": 19500000
+    },
+    {
+      "Name": "Clint Capela",
+      "Team": "Atlanta Hawks",
+      "Salary": 18000000
+    },
+    {
+      "Name": "Bogdan Bogdanovic",
+      "Team": "Atlanta Hawks",
+      "Salary": 18000000
+    },
+    {
+      "Name": "Tony Snell",
+      "Team": "Atlanta Hawks",
+      "Salary": 12178571
+    },
+    {
+      "Name": "Louis Williams",
+      "Team": "Atlanta Hawks",
+      "Salary": 8000000
+    },
+    {
+      "Name": "De'Andre Hunter",
+      "Team": "Atlanta Hawks",
+      "Salary": 7422000
+    },
+    {
+      "Name": "Trae Young",
+      "Team": "Atlanta Hawks",
+      "Salary": 6571800
+    },
+    {
+      "Name": "Onyeka Okongwu",
+      "Team": "Atlanta Hawks",
+      "Salary": 5813640
+    },
+    {
+      "Name": "Kris Dunn",
+      "Team": "Atlanta Hawks",
+      "Salary": 4767000
+    },
+    {
+      "Name": "Cam Reddish",
+      "Team": "Atlanta Hawks",
+      "Salary": 4458000
+    },
+    {
+      "Name": "John Collins",
+      "Team": "Atlanta Hawks",
+      "Salary": 4137302
+    },
+    {
+      "Name": "Kevin Huerter",
+      "Team": "Atlanta Hawks",
+      "Salary": 2761920
+    },
+    {
+      "Name": "Solomon Hill",
+      "Team": "Atlanta Hawks",
+      "Salary": 2174318
+    },
+    {
+      "Name": "Brandon Goodwin",
+      "Team": "Atlanta Hawks",
+      "Salary": 1701593
+    },
+    {
+      "Name": "Bruno Fernando",
+      "Team": "Atlanta Hawks",
+      "Salary": 1517981
+    },
+    {
+      "Name": "Skylar Mays",
+      "Team": "Atlanta Hawks",
+      "Salary": 532218
+    },
+    {
+      "Name": "Nathan Knight",
+      "Team": "Atlanta Hawks",
+      "Salary": 522989
+    }
+  ],
+  "Detroit Pistons": [
+    {
+      "Name": "Jerami Grant",
+      "Team": "Detroit Pistons",
+      "Salary": 19050000
+    },
+    {
+      "Name": "Cory Joseph",
+      "Team": "Detroit Pistons",
+      "Salary": 12600000
+    },
+    {
+      "Name": "Mason Plumlee",
+      "Team": "Detroit Pistons",
+      "Salary": 8000000
+    },
+    {
+      "Name": "Dennis Smith",
+      "Team": "Detroit Pistons",
+      "Salary": 5686677
+    },
+    {
+      "Name": "Killian Hayes",
+      "Team": "Detroit Pistons",
+      "Salary": 5307120
+    },
+    {
+      "Name": "Rodney McGruder",
+      "Team": "Detroit Pistons",
+      "Salary": 5192307
+    },
+    {
+      "Name": "Josh Jackson",
+      "Team": "Detroit Pistons",
+      "Salary": 4767000
+    },
+    {
+      "Name": "Wayne Ellington",
+      "Team": "Detroit Pistons",
+      "Salary": 3564753
+    },
+    {
+      "Name": "Sekou Doumbouya",
+      "Team": "Detroit Pistons",
+      "Salary": 3449400
+    },
+    {
+      "Name": "Isaiah Stewart",
+      "Team": "Detroit Pistons",
+      "Salary": 3121080
+    },
+    {
+      "Name": "Saddiq Bey",
+      "Team": "Detroit Pistons",
+      "Salary": 2689920
+    },
+    {
+      "Name": "Dzanan Musa",
+      "Team": "Detroit Pistons",
+      "Salary": 2002800
+    },
+    {
+      "Name": "Jahlil Okafor",
+      "Team": "Detroit Pistons",
+      "Salary": 1882867
+    },
+    {
+      "Name": "Hamidou Diallo",
+      "Team": "Detroit Pistons",
+      "Salary": 1663861
+    },
+    {
+      "Name": "Zhaire Smith",
+      "Team": "Detroit Pistons",
+      "Salary": 1068200
+    },
+    {
+      "Name": "Deividas Sirvydis",
+      "Team": "Detroit Pistons",
+      "Salary": 898310
+    },
+    {
+      "Name": "Tyler Cook",
+      "Team": "Detroit Pistons",
+      "Salary": 693141
+    },
+    {
+      "Name": "Saben Lee",
+      "Team": "Detroit Pistons",
+      "Salary": 516836
+    }
+  ],
+  "Memphis Grizzlies": [
+    {
+      "Name": "Jonas Valanciunas",
+      "Team": "Memphis Grizzlies",
+      "Salary": 15000000
+    },
+    {
+      "Name": "Justise Winslow",
+      "Team": "Memphis Grizzlies",
+      "Salary": 13000000
+    },
+    {
+      "Name": "Dion Waiters",
+      "Team": "Memphis Grizzlies",
+      "Salary": 12650000
+    },
+    {
+      "Name": "Dillon Brooks",
+      "Team": "Memphis Grizzlies",
+      "Salary": 11400000
+    },
+    {
+      "Name": "De'Anthony Melton",
+      "Team": "Memphis Grizzlies",
+      "Salary": 9571712
+    },
+    {
+      "Name": "Kyle Anderson",
+      "Team": "Memphis Grizzlies",
+      "Salary": 9505100
+    },
+    {
+      "Name": "Ja Morant",
+      "Team": "Memphis Grizzlies",
+      "Salary": 9166800
+    },
+    {
+      "Name": "Tyus Jones",
+      "Team": "Memphis Grizzlies",
+      "Salary": 8817143
+    },
+    {
+      "Name": "Marko Guduric",
+      "Team": "Memphis Grizzlies",
+      "Salary": 2750000
+    },
+    {
+      "Name": "Brandon Clarke",
+      "Team": "Memphis Grizzlies",
+      "Salary": 2602920
+    },
+    {
+      "Name": "Grayson Allen",
+      "Team": "Memphis Grizzlies",
+      "Salary": 2545320
+    },
+    {
+      "Name": "John Konchar",
+      "Team": "Memphis Grizzlies",
+      "Salary": 2100000
+    },
+    {
+      "Name": "Mario Hezonja",
+      "Team": "Memphis Grizzlies",
+      "Salary": 1977011
+    },
+    {
+      "Name": "Desmond Bane",
+      "Team": "Memphis Grizzlies",
+      "Salary": 1936440
+    },
+    {
+      "Name": "Jontay Porter",
+      "Team": "Memphis Grizzlies",
+      "Salary": 1900000
+    },
+    {
+      "Name": "Xavier Tillman",
+      "Team": "Memphis Grizzlies",
+      "Salary": 1300000
+    },
+    {
+      "Name": "Tim Frazier",
+      "Team": "Memphis Grizzlies",
+      "Salary": 597463
+    },
+    {
+      "Name": "Dakari Johnson",
+      "Team": "Memphis Grizzlies",
+      "Salary": 459414
+    },
+    {
+      "Name": "Killian Tillie",
+      "Team": "Memphis Grizzlies",
+      "Salary": 449115
+    },
+    {
+      "Name": "Sean McDermott",
+      "Team": "Memphis Grizzlies",
+      "Salary": 449115
+    }
+  ]
+}
