@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import LeaguePage from '../pages/LeaguePage';
 
 export default function Navigation() {
     return (
         <nav className="bg-gray-800 p-4">
-
             <div className="flex justify-between items-center">
                 <div className="flex space-x-4">
                     <Link to="/" className="text-white text-xl font-bold hover:text-gray-500">RosterTracker</Link>

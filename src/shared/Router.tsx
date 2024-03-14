@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
 import AboutPage from '../pages/AboutPage';
@@ -21,6 +20,7 @@ export default function Router() {
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/" element={<Navigate replace to="/home" />} />
             </Routes>
+
         </BrowserRouter>
     );
 }
