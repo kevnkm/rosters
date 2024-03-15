@@ -1,4 +1,5 @@
 import '../App.css';
+import RosterGraph from '../component/RosterGraph';
 
 interface LeaguePageProps {
   leagueName: string;
@@ -6,10 +7,13 @@ interface LeaguePageProps {
 
 function LeaguePage({ leagueName }: LeaguePageProps) {
   return (
-    <div className="p-4 bg-gray-100 rounded-md shadow-md">
-      <h1 className="text-2xl font-bold text-gray-800">
-        {leagueName.toUpperCase()}
-      </h1>
+    <div className="bg-blue">
+      <div className="p-4 bg-gray-100 rounded-md shadow-md">
+        <h1 className="text-xl font-bold text-gray-800">
+          {leagueName.toUpperCase()}
+        </h1>
+      </div>
+      <RosterGraph />
     </div>
   );
 }
