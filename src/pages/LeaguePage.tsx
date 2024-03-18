@@ -13,7 +13,7 @@ function LeaguePage({ leagueName }: LeaguePageProps) {
           {leagueName.toUpperCase()}
         </h1>
       </div>
-      <RosterGraph />
+      <RosterGraph leagueName={leagueName} />
     </div>
   );
 }
