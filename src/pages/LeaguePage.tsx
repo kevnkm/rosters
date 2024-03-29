@@ -5,7 +5,7 @@ interface LeaguePageProps {
   leagueName: string;
 }
 
-function LeaguePage({ leagueName }: LeaguePageProps) {
+const LeaguePage: React.FC<LeaguePageProps> = ({ leagueName }) => {
   return (
     <div className="bg-blue">
       <div className="p-4 bg-gray-100 rounded-md shadow-md">

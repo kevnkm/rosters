@@ -92,7 +92,6 @@ const RosterGraph: React.FC<RosterGraphProps> = ({ leagueName }) => {
         return () => {
             simulation.stop();
         };
-
     }, []);
 
     return (
