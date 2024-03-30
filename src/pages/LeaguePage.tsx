@@ -13,7 +13,9 @@ const LeaguePage: React.FC<LeaguePageProps> = ({ leagueName }) => {
           {leagueName.toUpperCase()}
         </h1>
       </div>
-      <RosterGraph leagueName={leagueName} />
+      <div className="h-200" style={{ height: 500 }}>
+        <RosterGraph leagueName={leagueName} />
+      </div>
     </div>
   );
 }
