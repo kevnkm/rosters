@@ -27,17 +27,78 @@ interface LeagueConfig {
     code: string;
     season: string;
     officialLink: string;
+    dataSource: 'sport.db' | 'openfootball' | 'sportsdataverse';
 }
+
+const dataSourceConfig: Record<string, { label: string; apiEndpoint: string; startCommand: string }> = {
+    'sport.db': {
+        label: 'sport.db',
+        apiEndpoint: 'GET /api/leagues/{code}/teams',
+        startCommand: 'sportdb serve',
+    },
+    openfootball: {
+        label: 'openfootball',
+        apiEndpoint: 'GET /api/football/{code}/teams',
+        startCommand: 'openfootball start',
+    },
+    sportsdataverse: {
+        label: 'sportsdataverse',
+        apiEndpoint: 'GET /api/sportsdata/{code}/teams',
+        startCommand: 'sportsdataverse run',
+    },
+};
 
 // League configuration
 const leagueConfig: Record<string, LeagueConfig> = {
-    nfl: { name: "National Football League", code: "NFL", season: "2024", officialLink: "https://www.nfl.com" },
-    nba: { name: "National Basketball Association", code: "NBA", season: "2023-24", officialLink: "https://www.nba.com" },
-    mlb: { name: "Major League Baseball", code: "MLB", season: "2024", officialLink: "https://www.mlb.com" },
-    nhl: { name: "National Hockey League", code: "NHL", season: "2023-24", officialLink: "https://www.nhl.com" },
-    epl: { name: "English Premier League", code: "ENG 1", season: "2023-24", officialLink: "https://www.premierleague.com" },
-    laliga: { name: "La Liga", code: "ES 1", season: "2023-24", officialLink: "https://www.laliga.com" },
-    bundesliga: { name: "Bundesliga", code: "DE 1", season: "2023-24", officialLink: "https://www.bundesliga.com" },
+    nfl: {
+        name: 'National Football League',
+        code: 'NFL',
+        season: '2024',
+        officialLink: 'https://www.nfl.com',
+        dataSource: 'sportsdataverse',
+    },
+    nba: {
+        name: 'National Basketball Association',
+        code: 'NBA',
+        season: '2023-24',
+        officialLink: 'https://www.nba.com',
+        dataSource: 'sportsdataverse',
+    },
+    mlb: {
+        name: 'Major League Baseball',
+        code: 'MLB',
+        season: '2024',
+        officialLink: 'https://www.mlb.com',
+        dataSource: 'sportsdataverse',
+    },
+    nhl: {
+        name: 'National Hockey League',
+        code: 'NHL',
+        season: '2023-24',
+        officialLink: 'https://www.nhl.com',
+        dataSource: 'sportsdataverse',
+    },
+    epl: {
+        name: 'English Premier League',
+        code: 'ENG 1',
+        season: '2023-24',
+        officialLink: 'https://www.premierleague.com',
+        dataSource: 'openfootball',
+    },
+    laliga: {
+        name: 'La Liga',
+        code: 'ES 1',
+        season: '2023-24',
+        officialLink: 'https://www.laliga.com',
+        dataSource: 'openfootball',
+    },
+    bundesliga: {
+        name: 'Bundesliga',
+        code: 'DE 1',
+        season: '2023-24',
+        officialLink: 'https://www.bundesliga.com',
+        dataSource: 'openfootball',
+    },
 };
 
 // Mock data
@@ -159,23 +220,29 @@ const LeagueHeader: React.FC<{ leagueData: LeagueInfo | null; config: LeagueConf
     </div>
 );
 
-const SportDbInfo: React.FC<{ config: LeagueConfig }> = ({ config }) => (
-    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-        <div className="flex items-start gap-3">
-            <div className="bg-blue-100 p-2 rounded-lg">
-                <code className="text-blue-800 text-xs">sport.db</code>
-            </div>
-            <div>
-                <h3 className="font-semibold text-blue-900">Data Source</h3>
-                <p className="text-blue-800 text-sm mt-1">
-                    In production: <code className="bg-blue-100 px-1 rounded">GET /api/leagues/{config.code}/teams</code>
-                    <br />
-                    Start service: <code className="bg-blue-100 px-1 rounded">sportdb serve</code>
-                </p>
+const SportDbInfo: React.FC<{ config: LeagueConfig }> = ({ config }) => {
+    const source = dataSourceConfig[config.dataSource];
+
+    return (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <div className="flex items-start gap-3">
+                <div className="bg-blue-100 p-2 rounded-lg">
+                    <code className="text-blue-800 text-xs">{source.label}</code>
+                </div>
+                <div>
+                    <h3 className="font-semibold text-blue-900">Data Source</h3>
+                    <p className="text-blue-800 text-sm mt-1">
+                        In production:{' '}
+                        <code className="bg-blue-100 px-1 rounded">{source.apiEndpoint.replace('{code}', config.code)}</code>
+                        <br />
+                        Start service:{' '}
+                        <code className="bg-blue-100 px-1 rounded">{source.startCommand}</code>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
+};
 
 const League: React.FC = () => {
     const { sport } = useParams<{ sport?: string }>();
@@ -188,7 +255,7 @@ const League: React.FC = () => {
     useEffect(() => {
         const fetchLeagueData = async () => {
             if (!sport || !config) {
-                setError(`Unknown sport: ${sport || "undefined"}`);
+                setError(`Unknown sport: ${sport || 'undefined'}`);
                 setLoading(false);
                 return;
             }
@@ -199,6 +266,19 @@ const League: React.FC = () => {
             try {
                 await new Promise((resolve) => setTimeout(resolve, 800));
                 const mockData = mockLeagueData[sport];
+
+                // let apiUrl;
+                // switch (config.dataSource) {
+                //     case 'sport.db':
+                //         apiUrl = `/api/leagues/${config.code}/teams`;
+                //         break;
+                //     case 'openfootball':
+                //         apiUrl = `/api/football/${config.code}/teams`;
+                //         break;
+                //     case 'sportsdataverse':
+                //         apiUrl = `/api/sportsdata/${config.code}/teams`;
+                //         break;
+                // }
 
                 setLeagueData(
                     mockData || {
@@ -211,7 +291,7 @@ const League: React.FC = () => {
                     }
                 );
             } catch (err) {
-                setError("Failed to fetch league data from sport.db");
+                setError(`Failed to fetch league data from ${config.dataSource}`);
                 console.error("API Error:", err);
             } finally {
                 setLoading(false);
@@ -229,7 +309,7 @@ const League: React.FC = () => {
                     <div className="text-center">
                         <Loader className="animate-spin h-8 w-8 text-blue-600 mx-auto mb-4" />
                         <p className="text-gray-600">Loading {config?.name || sport || "league"} data...</p>
-                        <p className="text-sm text-gray-500 mt-2">Fetching from sport.db</p>
+                        <p className="text-sm text-gray-500 mt-2">Fetching from {config?.dataSource}</p>
                     </div>
                 </div>
             </div>
