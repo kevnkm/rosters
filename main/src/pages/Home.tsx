@@ -8,19 +8,19 @@ const Home: React.FC = () => {
             <NavBar />
             <div className="flex flex-1 justify-center items-center space-x-8">
                 <div className="flex flex-col space-y-4">
-                    <Link to="/nfl" className="hover:underline text-blue-500 text-lg text-center">
+                    <Link to="/league/nfl" className="hover:underline text-blue-500 text-lg text-center">
                         NFL
                     </Link>
-                    <Link to="/nba" className="hover:underline text-blue-500 text-lg text-center">
+                    <Link to="/league/nba" className="hover:underline text-blue-500 text-lg text-center">
                         NBA
                     </Link>
-                    <Link to="/mlb" className="hover:underline text-blue-500 text-lg text-center">
+                    <Link to="/league/mlb" className="hover:underline text-blue-500 text-lg text-center">
                         MLB
                     </Link>
-                    <Link to="/nhl" className="hover:underline text-blue-500 text-lg text-center">
+                    <Link to="/league/nhl" className="hover:underline text-blue-500 text-lg text-center">
                         NHL
                     </Link>
-                    <Link to="/epl" className="hover:underline text-blue-500 text-lg text-center">
+                    <Link to="/league/epl" className="hover:underline text-blue-500 text-lg text-center">
                         EPL
                     </Link>
                 </div>

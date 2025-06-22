@@ -1,16 +1,16 @@
 import "./App.css";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import League from "./pages/League";
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter basename="/RosterTracker">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/:sport" element={<League />} />
+        <Route path="/league/:sport" element={<League />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
