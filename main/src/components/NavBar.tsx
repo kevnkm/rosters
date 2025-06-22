@@ -4,7 +4,7 @@ import logo from "../images/logo192.png";
 
 const NavBar: React.FC = () => {
     return (
-        <nav className="bg-white p-4 h-16">
+        <nav className="bg-white shadow-sm p-4 h-16">
             <div className="container mx-auto flex justify-between items-center h-full px-4">
                 <Link to="/" className="flex items-center">
                     <img
