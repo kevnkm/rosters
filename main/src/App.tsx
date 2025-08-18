@@ -5,7 +5,7 @@ import League from "./pages/League";
 
 function App() {
   return (
-    <BrowserRouter basename="/RosterTracker">
+    <BrowserRouter basename="/rosters">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/league/:sport" element={<League />} />
