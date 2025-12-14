@@ -21,7 +21,25 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
 }) => {
     const [api, setApi] = useState<CarouselApi>();
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const hasInitialized = useRef(false);
 
+    // Initialize carousel position to match selectedSeason
+    useEffect(() => {
+        if (!api || seasons.length === 0) return;
+
+        const index = seasons.indexOf(selectedSeason);
+        if (index !== -1) {
+            // Scroll to the selected season
+            api.scrollTo(index);
+
+            // Only do this once on mount if it's the initial load
+            if (!hasInitialized.current) {
+                hasInitialized.current = true;
+            }
+        }
+    }, [api, selectedSeason, seasons]);
+
+    // Handle user scrolling with debounce before updating parent
     useEffect(() => {
         if (!api) return;
 
@@ -36,14 +54,13 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
             const season = seasons[selectedIndex];
 
             // Set a 1-second timeout to auto-select the season
-            timeoutRef.current = setTimeout(() => {
-                if (season !== selectedSeason) {
+            if (season && season !== selectedSeason) {
+                timeoutRef.current = setTimeout(() => {
                     onSelect(season);
-                }
-            }, 1000);
+                }, 800);
+            }
         };
 
-        // Listen to carousel scroll events
         api.on("select", handleSelect);
 
         return () => {
@@ -79,8 +96,7 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
                                     {/* Animated gradient layer */}
                                     <div
                                         className={`
-                                            absolute inset-0
-                                            bg-gradient-to-br bg-blue-500
+                                            absolute inset-0 bg-blue-500
                                             transition-opacity duration-500 ease-out
                                             ${isActive ? "opacity-100" : "opacity-0"}
                                         `}
