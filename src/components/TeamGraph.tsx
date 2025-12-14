@@ -2,16 +2,10 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-type PlayerNode = {
+type PlayerNode = d3.SimulationNodeDatum & {
     id: string;
     label: string;
     team: string;
-    x?: number;
-    y?: number;
-    vx?: number;
-    vy?: number;
-    fx?: number | null;
-    fy?: number | null;
 };
 
 const NODES: PlayerNode[] = [
@@ -23,9 +17,21 @@ const NODES: PlayerNode[] = [
     { id: "lebron", label: "L. James", team: "Lakers" },
     { id: "davis", label: "A. Davis", team: "Lakers" },
     { id: "reaves", label: "A. Reaves", team: "Lakers" },
+    { id: "tatum", label: "J. Tatum", team: "Celtics" },
+    { id: "brown", label: "J. Brown", team: "Celtics" },
 ];
 
 const RADIUS = 36;
+
+const TEAM_COLORS: Record<string, string> = {
+    Warriors: "#1D428A",
+    Lakers: "#552583",
+    Celtics: "#007A33",
+    default: "#666666",
+};
+
+const getTeamColor = (team: string): string =>
+    TEAM_COLORS[team] || TEAM_COLORS.default;
 
 const TeamGraph: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -35,16 +41,39 @@ const TeamGraph: React.FC = () => {
     useEffect(() => {
         if (!containerRef.current || !svgRef.current) return;
 
-        const svg = d3.select(svgRef.current);
         const container = containerRef.current;
+        const svg = d3.select(svgRef.current);
 
-        // === TEAM COLORS ===
-        const teamColors: Record<string, string> = {
-            Warriors: "#1D428A",
-            Lakers: "#552583",
+        const getSize = () => container.getBoundingClientRect();
+        let { width, height } = getSize();
+        svg.attr("width", width).attr("height", height);
+
+        const teams = Array.from(new Set(NODES.map((n) => n.team)));
+
+        const calculateTeamCenters = (
+            teamList: string[],
+            w: number,
+            h: number
+        ): Record<string, { x: number; y: number }> => {
+            const centerX = w / 2;
+            const centerY = h / 2;
+
+            const baseRadius = Math.min(w, h) * 0.35;
+            const radius = baseRadius * Math.max(0.6, 1 - (teamList.length - 2) * 0.05);
+
+            return teamList.reduce((acc, team, i) => {
+                const angle = (i / teamList.length) * 2 * Math.PI - Math.PI / 2;
+                acc[team] = {
+                    x: centerX + radius * Math.cos(angle),
+                    y: centerY + radius * Math.sin(angle),
+                };
+                return acc;
+            }, {} as Record<string, { x: number; y: number }>);
         };
 
         // === NODES ===
+        let teamCenters = calculateTeamCenters(teams, width, height);
+
         const nodeGroup = svg
             .selectAll<SVGGElement, PlayerNode>("g.node")
             .data(NODES, d => d.id)
@@ -52,20 +81,24 @@ const TeamGraph: React.FC = () => {
             .attr("class", "node cursor-grab");
 
         nodeGroup
-            .append("circle")
+            .selectAll("circle")
+            .data((d) => [d])
+            .join("circle")
             .attr("r", RADIUS)
-            .attr("fill", d => teamColors[d.team])
+            .attr("fill", (d) => getTeamColor(d.team))
             .attr("stroke", "#fff")
             .attr("stroke-width", 2)
-            .attr("opacity", 0.8);
+            .attr("opacity", 0.9);
 
         nodeGroup
-            .append("text")
+            .selectAll("text")
+            .data((d) => [d])
+            .join("text")
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "middle")
-            .attr("class", "text-[11px] font-semibold pointer-events-none select-none")
             .attr("fill", "#fff")
-            .text(d => d.label);
+            .attr("class", "text-[11px] font-semibold pointer-events-none select-none")
+            .text((d) => d.label);
 
         // === DRAG ===
         const drag = d3
@@ -87,63 +120,63 @@ const TeamGraph: React.FC = () => {
 
         nodeGroup.call(drag);
 
-        // === TEAM ATTRACTION FORCE ===
-        const teamAttractionForce = () => {
-            NODES.forEach(nodeA => {
-                NODES.forEach(nodeB => {
-                    if (nodeA.id !== nodeB.id && nodeA.team === nodeB.team) {
-                        const dx = (nodeB.x ?? 0) - (nodeA.x ?? 0);
-                        const dy = (nodeB.y ?? 0) - (nodeA.y ?? 0);
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance > 0) {
-                            const strength = 0.01;
-                            const force = strength * distance;
-
-                            nodeA.vx = (nodeA.vx ?? 0) + (dx / distance) * force;
-                            nodeA.vy = (nodeA.vy ?? 0) + (dy / distance) * force;
-                        }
-                    }
-                });
-            });
+        // Custom force: attract nodes to their team center
+        const teamCenterForce = (strength = 0.08) => {
+            return (alpha: number) => {
+                for (const node of NODES) {
+                    const center = teamCenters[node.team];
+                    if (!center) continue;
+                    node.vx! += (center.x - (node.x ?? 0)) * strength * alpha;
+                    node.vy! += (center.y - (node.y ?? 0)) * strength * alpha;
+                }
+            };
         };
 
-        // === INITIAL SIZE ===
-        const resize = () => {
-            const { width, height } = container.getBoundingClientRect();
+        // Custom force: gently clamp nodes from drifting too far from their team
+        const MAX_DISTANCE_FROM_CENTER = 220;
+        const clampForce = () => {
+            for (const node of NODES) {
+                const center = teamCenters[node.team];
+                if (!center || node.x === undefined || node.y === undefined) continue;
 
-            svg.attr("width", width).attr("height", height);
+                const dx = node.x - center.x;
+                const dy = node.y - center.y;
+                const dist = Math.hypot(dx, dy);
 
-            simulationRef.current
-                ?.force("center", d3.forceCenter(width / 2, height / 2))
-                ?.alpha(0.5)
-                ?.restart();
+                if (dist > MAX_DISTANCE_FROM_CENTER) {
+                    const pullStrength = (dist - MAX_DISTANCE_FROM_CENTER) * 0.15;
+                    node.vx! -= (dx / dist) * pullStrength;
+                    node.vy! -= (dy / dist) * pullStrength;
+                }
+            };
         };
-
-        const { width, height } = container.getBoundingClientRect();
 
         // === SIMULATION ===
         const simulation = d3
             .forceSimulation<PlayerNode>(NODES)
-            .force("center", d3.forceCenter(width / 2, height / 2))
-            .force("charge", d3.forceManyBody().strength(-100))
+            .force("charge", d3.forceManyBody().strength(-80))
             .force("collision", d3.forceCollide(RADIUS + 10))
-            .force("team", teamAttractionForce)
-            .velocityDecay(0.35)
+            .force("team-center", teamCenterForce())
+            .force("clamp", clampForce)
+            .velocityDecay(0.5)
             .on("tick", () => {
-                nodeGroup.attr(
-                    "transform",
-                    d => `translate(${d.x ?? 0}, ${d.y ?? 0})`
-                );
+                nodeGroup.attr("transform", (d) => `translate(${d.x ?? 0},${d.y ?? 0})`);
             });
 
         simulationRef.current = simulation;
 
-        resize();
-        window.addEventListener("resize", resize);
+        const handleResize = () => {
+            ({ width, height } = getSize());
+            svg.attr("width", width).attr("height", height);
+
+            teamCenters = calculateTeamCenters(teams, width, height);
+            simulation.alpha(0.5).restart();
+        };
+
+        window.addEventListener("resize", handleResize);
 
         return () => {
-            window.removeEventListener("resize", resize);
+            window.removeEventListener("resize", handleResize);
             simulation.stop();
         };
     }, []);
