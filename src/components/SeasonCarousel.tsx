@@ -56,17 +56,11 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
 
     return (
         <div className="relative w-full max-w-xs mx-auto">
-            {/* Left gradient */}
-            <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-background to-transparent" />
+            {/* Gradients */}
+            <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 bg-gradient-to-r from-background to-transparent" />
+            <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 bg-gradient-to-l from-background to-transparent" />
 
-            {/* Right gradient */}
-            <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-background to-transparent" />
-
-            <Carousel
-                opts={{ align: "center" }}
-                className="relative"
-                setApi={setApi}
-            >
+            <Carousel opts={{ align: "center" }} className="relative" setApi={setApi}>
                 <CarouselContent>
                     {seasons.map((season) => {
                         const isActive = season === selectedSeason;
@@ -76,21 +70,44 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
                                 <button
                                     onClick={() => onSelect(season)}
                                     className={`
-                                        w-52 h-24 rounded-2xl p-6 flex items-center justify-center transition-all select-none
-                                        ${isActive
-                                            ? "bg-gradient-to-br from-blue-600 via-blue-700 to-purple-700"
-                                            : "bg-card"
-                                        }
+                                        relative w-52 h-24
+                                        flex items-center justify-center
+                                        select-none overflow-hidden
+
+                                        transition-all duration-500 ease-out
                                     `}
                                 >
+                                    {/* Animated gradient layer */}
                                     <div
                                         className={`
-                                            text-2xl font-bold
-                                            ${isActive ? "text-white" : "text-card-foreground"}
+                                            absolute inset-0
+                                            bg-gradient-to-br bg-blue-500
+                                            transition-opacity duration-500 ease-out
+                                            ${isActive ? "opacity-100" : "opacity-0"}
+                                        `}
+                                    />
+
+                                    {/* Card background when inactive */}
+                                    <div
+                                        className={`
+                                            absolute inset-0 bg-card
+                                            transition-opacity duration-500 ease-out
+                                            ${isActive ? "opacity-0" : "opacity-100"}
+                                        `}
+                                    />
+
+                                    {/* Text */}
+                                    <span
+                                        className={`
+                                            relative z-10 text-2xl font-bold
+                                            transition-colors duration-500
+                                            ${isActive
+                                                ? "text-white"
+                                                : "text-card-foreground"}
                                         `}
                                     >
                                         {season}
-                                    </div>
+                                    </span>
                                 </button>
                             </CarouselItem>
                         );
@@ -102,11 +119,9 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
                         -left-12
                         h-10 w-10
                         bg-card
-                        border-border
                         text-card-foreground
-                        hover:bg-accent
-                        hover:text-accent-foreground
-                        transition-all
+                        hover:bg-accent hover:text-accent-foreground
+                        transition-colors
                     "
                 />
                 <CarouselNext
@@ -114,11 +129,9 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
                         -right-12
                         h-10 w-10
                         bg-card
-                        border-border
                         text-card-foreground
-                        hover:bg-accent
-                        hover:text-accent-foreground
-                        transition-all
+                        hover:bg-accent hover:text-accent-foreground
+                        transition-colors
                     "
                 />
             </Carousel>
