@@ -19,7 +19,6 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
     selectedSeason,
     onSelect,
 }) => {
-    const currentIndex = seasons.indexOf(selectedSeason);
     const [api, setApi] = useState<CarouselApi>();
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -58,10 +57,10 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
     return (
         <div className="relative w-full max-w-xs mx-auto">
             {/* Left gradient */}
-            <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-gray-50 to-transparent" />
+            <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-background to-transparent" />
 
             {/* Right gradient */}
-            <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-gray-50 to-transparent" />
+            <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-background to-transparent" />
 
             <Carousel
                 opts={{ align: "center" }}
@@ -69,43 +68,29 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
                 setApi={setApi}
             >
                 <CarouselContent>
-                    {seasons.map((season, index) => {
+                    {seasons.map((season) => {
                         const isActive = season === selectedSeason;
-                        const isPast = index < currentIndex;
 
                         return (
                             <CarouselItem key={season} className="flex justify-center">
                                 <button
                                     onClick={() => onSelect(season)}
                                     className={`
-                                        w-52 h-36 rounded-2xl p-6 flex flex-col justify-between transition-all
+                                        w-52 h-24 rounded-2xl p-6 flex items-center justify-center transition-all select-none
                                         ${isActive
                                             ? "bg-gradient-to-br from-blue-600 via-blue-700 to-purple-700"
-                                            : "bg-gradient-to-br from-white to-gray-50"
+                                            : "bg-card"
                                         }
                                     `}
                                 >
                                     <div
                                         className={`
                                             text-2xl font-bold
-                                            ${isActive ? "text-white" : "text-gray-900"}
+                                            ${isActive ? "text-white" : "text-card-foreground"}
                                         `}
                                     >
                                         {season}
                                     </div>
-                                    {isActive ? (
-                                        <span className="text-xs font-bold text-white bg-white/30 backdrop-blur-sm px-3 py-1.5 rounded-full w-fit">
-                                            • Active
-                                        </span>
-                                    ) : isPast ? (
-                                        <span className="text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full w-fit">
-                                            Completed
-                                        </span>
-                                    ) : (
-                                        <span className="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full w-fit">
-                                            Upcoming
-                                        </span>
-                                    )}
                                 </button>
                             </CarouselItem>
                         );
@@ -116,8 +101,11 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
                     className="
                         -left-12
                         h-10 w-10
-                        border border-white/40
-                        text-white
+                        bg-card
+                        border-border
+                        text-card-foreground
+                        hover:bg-accent
+                        hover:text-accent-foreground
                         transition-all
                     "
                 />
@@ -125,8 +113,11 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
                     className="
                         -right-12
                         h-10 w-10
-                        border border-white/40
-                        text-white
+                        bg-card
+                        border-border
+                        text-card-foreground
+                        hover:bg-accent
+                        hover:text-accent-foreground
                         transition-all
                     "
                 />
