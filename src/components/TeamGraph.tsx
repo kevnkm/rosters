@@ -63,7 +63,7 @@ const TeamGraph: React.FC = () => {
             .append("text")
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "middle")
-            .attr("class", "text-[11px] font-semibold pointer-events-none")
+            .attr("class", "text-[11px] font-semibold pointer-events-none select-none")
             .attr("fill", "#fff")
             .text(d => d.label);
 
