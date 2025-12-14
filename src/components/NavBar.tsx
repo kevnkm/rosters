@@ -4,16 +4,18 @@ import logo from "../assets/clipboard-svgrepo-com.svg";
 
 const NavBar: React.FC = () => {
     return (
-        <nav className="bg-white shadow-sm p-4 h-16">
-            <div className="container mx-auto flex justify-between items-center h-full px-4">
-                <Link to="/" className="flex items-center">
-                    <img
-                        src={logo}
-                        alt="Logo"
-                        className="h-6 w-auto"
-                        draggable="false"
-                    />
-                    <span className="text-xl text-black font-bold font-dot-gothic-16 sm:inline ml-2">
+        <nav className="border-b bg-background">
+            <div className="container mx-auto flex h-16 items-center justify-between px-4">
+                <Link to="/" className="flex items-center space-x-2">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200">
+                        <img
+                            src={logo}
+                            alt="Logo"
+                            className="h-5 w-5"
+                            draggable="false"
+                        />
+                    </div>
+                    <span className="text-xl font-bold text-neutral-900 dark:text-neutral-100">
                         Roster Tracker
                     </span>
                 </Link>
