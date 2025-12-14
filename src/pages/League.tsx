@@ -22,27 +22,29 @@ const League: React.FC = () => {
     return (
         <div className="min-h-screen bg-background flex flex-col">
             <NavBar />
-            <div className="py-4">
-                <SeasonCarousel
-                    seasons={AVAILABLE_SEASONS}
-                    selectedSeason={selectedSeason}
-                    onSelect={setSelectedSeason}
-                />
-            </div>
 
-            <div className="container mx-auto px-4 py-5 max-w-7xl flex-1 flex flex-col items-center justify-center">
-                {/* Season Display */}
-                <div className="flex items-center gap-3 px-6 py-3 bg-muted border border-border rounded-full w-64">
-                    <span className="text-sm font-semibold text-muted-foreground whitespace-nowrap">
-                        Season
-                    </span>
-                    <span className="text-2xl font-bold text-blue-700 dark:text-blue-400 flex-1 text-center">
-                        {selectedSeason}
-                    </span>
+            {/* Graph container */}
+            <div className="relative flex-1">
+                <div className="absolute inset-0">
+                    <TeamGraph />
                 </div>
-            </div>
-            <div className="mt-8 w-full flex justify-center">
-                <TeamGraph />
+
+                {/* Season carousel */}
+                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center gap-4 bg-background/80 backdrop-blur-sm px-6 py-3 rounded-lg shadow-md">
+                    <SeasonCarousel
+                        seasons={AVAILABLE_SEASONS}
+                        selectedSeason={selectedSeason}
+                        onSelect={setSelectedSeason}
+                    />
+                    <div className="flex items-center gap-3 px-6 py-2 bg-muted border border-border rounded-full w-64">
+                        <span className="text-sm font-semibold text-muted-foreground whitespace-nowrap">
+                            Season
+                        </span>
+                        <span className="text-2xl font-bold text-blue-700 dark:text-blue-400 flex-1 text-center">
+                            {selectedSeason}
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     );
