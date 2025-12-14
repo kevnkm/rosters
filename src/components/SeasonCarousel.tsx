@@ -55,7 +55,7 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
     }, [api, seasons, selectedSeason, onSelect]);
 
     return (
-        <div className="relative w-full max-w-xs mx-auto">
+        <div className="relative w-full sm:max-w-xs mx-auto">
             {/* Gradients */}
             <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-10 bg-gradient-to-r from-background to-transparent" />
             <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-10 bg-gradient-to-l from-background to-transparent" />
@@ -66,14 +66,13 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
                         const isActive = season === selectedSeason;
 
                         return (
-                            <CarouselItem key={season} className="flex justify-center">
+                            <CarouselItem key={season} className="flex justify-center basis-full">
                                 <button
                                     onClick={() => onSelect(season)}
                                     className={`
-                                        relative w-52 h-24
+                                        relative w-full max-w-[200px] sm:w-52 h-20 sm:h-24
                                         flex items-center justify-center
                                         select-none overflow-hidden
-
                                         transition-all duration-500 ease-out
                                     `}
                                 >
@@ -99,7 +98,7 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
                                     {/* Text */}
                                     <span
                                         className={`
-                                            relative z-10 text-2xl font-bold
+                                            relative z-10 text-xl sm:text-2xl font-bold
                                             transition-colors duration-500
                                             ${isActive
                                                 ? "text-white"
@@ -116,22 +115,24 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
 
                 <CarouselPrevious
                     className="
-                        -left-12
-                        h-10 w-10
+                        -left-2 sm:-left-12
+                        h-8 w-8 sm:h-10 sm:w-10
                         bg-card
                         text-card-foreground
                         hover:bg-accent hover:text-accent-foreground
                         transition-colors
+                        z-20
                     "
                 />
                 <CarouselNext
                     className="
-                        -right-12
-                        h-10 w-10
+                        -right-2 sm:-right-12
+                        h-8 w-8 sm:h-10 sm:w-10
                         bg-card
                         text-card-foreground
                         hover:bg-accent hover:text-accent-foreground
                         transition-colors
+                        z-20
                     "
                 />
             </Carousel>
