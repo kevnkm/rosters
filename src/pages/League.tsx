@@ -12,7 +12,6 @@ const AVAILABLE_SEASONS = [
     "2023-24",
     "2024-25",
     "2025-26",
-    "2026-27",
 ];
 
 const League: React.FC = () => {
@@ -21,7 +20,7 @@ const League: React.FC = () => {
     );
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col">
+        <div className="min-h-screen bg-background flex flex-col">
             <NavBar />
 
             <div className="container mx-auto px-4 py-12 max-w-7xl flex-1">
@@ -35,21 +34,21 @@ const League: React.FC = () => {
                 </div>
 
                 {/* Season Display */}
-                <div className="bg-white rounded-3xl shadow-xl p-12 text-center">
+                <div className="bg-card rounded-3xl shadow-xl p-12 text-center">
                     <div className="inline-flex items-center gap-4 mb-8">
                         <div className="p-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl">
                             <Calendar className="h-8 w-8 text-white" />
                         </div>
-                        <h1 className="text-4xl font-extrabold text-gray-900">
+                        <h1 className="text-4xl font-extrabold text-foreground">
                             League Overview
                         </h1>
                     </div>
 
-                    <div className="inline-flex items-center gap-3 px-6 py-3 bg-blue-50 border border-blue-200 rounded-full">
-                        <span className="text-sm font-semibold text-gray-600">
+                    <div className="inline-flex items-center gap-3 px-6 py-3 bg-muted border border-border rounded-full">
+                        <span className="text-sm font-semibold text-muted-foreground">
                             Season
                         </span>
-                        <span className="text-2xl font-bold text-blue-700">
+                        <span className="text-2xl font-bold text-blue-700 dark:text-blue-400">
                             {selectedSeason}
                         </span>
                     </div>
