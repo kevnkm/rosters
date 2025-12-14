@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
+    type CarouselApi,
 } from "@/components/ui/carousel";
 
 interface SeasonCarouselProps {
@@ -19,6 +20,40 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
     onSelect,
 }) => {
     const currentIndex = seasons.indexOf(selectedSeason);
+    const [api, setApi] = useState<CarouselApi>();
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    useEffect(() => {
+        if (!api) return;
+
+        const handleSelect = () => {
+            // Clear any existing timeout
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+
+            // Get the currently centered slide
+            const selectedIndex = api.selectedScrollSnap();
+            const season = seasons[selectedIndex];
+
+            // Set a 1-second timeout to auto-select the season
+            timeoutRef.current = setTimeout(() => {
+                if (season !== selectedSeason) {
+                    onSelect(season);
+                }
+            }, 1000);
+        };
+
+        // Listen to carousel scroll events
+        api.on("select", handleSelect);
+
+        return () => {
+            api.off("select", handleSelect);
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, [api, seasons, selectedSeason, onSelect]);
 
     return (
         <div className="relative w-full max-w-xs mx-auto">
@@ -28,7 +63,11 @@ const SeasonCarousel: React.FC<SeasonCarouselProps> = ({
             {/* Right gradient */}
             <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-gray-50 to-transparent" />
 
-            <Carousel opts={{ align: "center" }} className="relative">
+            <Carousel
+                opts={{ align: "center" }}
+                className="relative"
+                setApi={setApi}
+            >
                 <CarouselContent>
                     {seasons.map((season, index) => {
                         const isActive = season === selectedSeason;
