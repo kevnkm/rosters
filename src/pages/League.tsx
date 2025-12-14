@@ -25,7 +25,7 @@ const League: React.FC = () => {
 
             {/* Graph container */}
             <div className="relative flex-1">
-                <div className="absolute inset-0">
+                <div className="absolute inset-0 touch-none">
                     <TeamGraph />
                 </div>
 
