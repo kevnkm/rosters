@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NavBar from "@/components/NavBar";
 import SeasonCarousel from "@/components/SeasonCarousel";
+import TeamGraph from "@/components/TeamGraph";
 
 const AVAILABLE_SEASONS = [
     "2018-19",
@@ -39,6 +40,9 @@ const League: React.FC = () => {
                         {selectedSeason}
                     </span>
                 </div>
+            </div>
+            <div className="mt-8 w-full flex justify-center">
+                <TeamGraph />
             </div>
         </div>
     );
