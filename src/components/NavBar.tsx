@@ -5,8 +5,8 @@ import logo from "../assets/clipboard-svgrepo-com.svg";
 const NavBar: React.FC = () => {
     return (
         <nav className="border-b bg-background">
-            <div className="container mx-auto flex h-16 items-center justify-between px-4">
-                <Link to="/" className="flex items-center space-x-2">
+            <div className="container mx-auto flex h-16 px-4">
+                <Link to="/" className="mx-auto flex items-center space-x-2 sm:mx-0">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-200">
                         <img
                             src={logo}
