@@ -25,18 +25,18 @@ const NODES: PlayerNode[] = [
     { id: "reaves", label: "A. Reaves", team: "Lakers" },
 ];
 
-const WIDTH = 800;
-const HEIGHT = 500;
 const RADIUS = 36;
 
 const TeamGraph: React.FC = () => {
-    const svgRef = useRef<SVGSVGElement | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const svgRef = useRef<SVGSVGElement>(null);
     const simulationRef = useRef<d3.Simulation<PlayerNode, undefined> | null>(null);
 
     useEffect(() => {
-        if (!svgRef.current) return;
+        if (!containerRef.current || !svgRef.current) return;
 
         const svg = d3.select(svgRef.current);
+        const container = containerRef.current;
 
         // === TEAM COLORS ===
         const teamColors: Record<string, string> = {
@@ -44,17 +44,17 @@ const TeamGraph: React.FC = () => {
             Lakers: "#552583",
         };
 
-        // === CREATE NODE GROUPS ONCE ===
+        // === NODES ===
         const nodeGroup = svg
             .selectAll<SVGGElement, PlayerNode>("g.node")
             .data(NODES, d => d.id)
             .join("g")
-            .attr("class", "node cursor-grab active:cursor-grabbing");
+            .attr("class", "node cursor-grab");
 
         nodeGroup
             .append("circle")
             .attr("r", RADIUS)
-            .attr("fill", d => teamColors[d.team] || "#666")
+            .attr("fill", d => teamColors[d.team])
             .attr("stroke", "#fff")
             .attr("stroke-width", 2)
             .attr("opacity", 0.8);
@@ -67,7 +67,7 @@ const TeamGraph: React.FC = () => {
             .attr("fill", "#fff")
             .text(d => d.label);
 
-        // === DRAG BEHAVIOR ===
+        // === DRAG ===
         const drag = d3
             .drag<SVGGElement, PlayerNode>()
             .on("start", (event, d) => {
@@ -87,7 +87,7 @@ const TeamGraph: React.FC = () => {
 
         nodeGroup.call(drag);
 
-        // === CUSTOM FORCE FOR TEAM ATTRACTION ===
+        // === TEAM ATTRACTION FORCE ===
         const teamAttractionForce = () => {
             NODES.forEach(nodeA => {
                 NODES.forEach(nodeB => {
@@ -108,34 +108,49 @@ const TeamGraph: React.FC = () => {
             });
         };
 
-        // === FORCE SIMULATION ===
+        // === INITIAL SIZE ===
+        const resize = () => {
+            const { width, height } = container.getBoundingClientRect();
+
+            svg.attr("width", width).attr("height", height);
+
+            simulationRef.current
+                ?.force("center", d3.forceCenter(width / 2, height / 2))
+                ?.alpha(0.5)
+                ?.restart();
+        };
+
+        const { width, height } = container.getBoundingClientRect();
+
+        // === SIMULATION ===
         const simulation = d3
             .forceSimulation<PlayerNode>(NODES)
-            .force("center", d3.forceCenter(WIDTH / 2, HEIGHT / 2))
-            .force("charge", d3.forceManyBody().strength(-300))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("charge", d3.forceManyBody().strength(-100))
             .force("collision", d3.forceCollide(RADIUS + 10))
-            .force("teamAttraction", teamAttractionForce)
-            .velocityDecay(0.4)
+            .force("team", teamAttractionForce)
+            .velocityDecay(0.35)
             .on("tick", () => {
                 nodeGroup.attr(
                     "transform",
-                    d => `translate(${d.x ?? WIDTH / 2}, ${d.y ?? HEIGHT / 2})`
+                    d => `translate(${d.x ?? 0}, ${d.y ?? 0})`
                 );
             });
 
         simulationRef.current = simulation;
 
+        resize();
+        window.addEventListener("resize", resize);
+
         return () => {
+            window.removeEventListener("resize", resize);
             simulation.stop();
         };
     }, []);
 
     return (
-        <div className="w-full">
-            <svg
-                ref={svgRef}
-                viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-            />
+        <div ref={containerRef} className="w-full h-full">
+            <svg ref={svgRef} className="w-full h-full" />
         </div>
     );
 };
