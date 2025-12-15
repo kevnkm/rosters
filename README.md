@@ -1,54 +1,32 @@
-# React + TypeScript + Vite
+# Roster Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the **Roster Tracker**! This website allows you to view and analyze sports rosters using publicly available data from ESPN's API. This project is purely educational and informational. It is not affiliated with ESPN or intended for commercial purposes.
 
-Currently, two official plugins are available:
+## Features
+- Roster data from ESPN API Endpoints
+- Easy-to-use interface to track players and teams
+- Designed to help you learn how to work with sports data and APIs
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## License
 
-## Expanding the ESLint configuration
+The source code for **Roster Tracker** is open-source and licensed under the **MIT License**. You are free to use, modify, and distribute the code for educational and non-commercial purposes, provided that you retain the copyright and license notices in all copies.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Disclaimer
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+This website uses data provided by **ESPN**. ESPN content is the property of ESPN and its licensors. This project is **not affiliated with or endorsed by ESPN**. The data is pulled from ESPN's public API and is presented for **educational and informational purposes only**.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The API responses are **subject to ESPN's Terms of Service** and may be restricted or changed at any time. Please refer to ESPN's official website for their terms and policies.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## How It Works
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+1. The repository contains sports roster data retrieved using **ESPN's API Endpoints**.
+2. This data is displayed in a clean, user-friendly format.
+3. You can view up-to-date information about teams, players, and other relevant stats.
+
+## Contributing
+
+If you'd like to contribute to the development of this project, feel free to fork the repository, make your changes, and submit a pull request.
+
+When contributing, please ensure that you comply with the following:
+- Respect ESPN's Terms of Service regarding the use of their data.
+- Follow the project's coding conventions and style guidelines.
