@@ -8,6 +8,10 @@ type PlayerNode = d3.SimulationNodeDatum & {
     team: string;
 };
 
+interface TeamGraphProps {
+    isPointerMode?: boolean;
+}
+
 const NODES: PlayerNode[] = [
     { id: "curry", label: "S. Curry", team: "Warriors" },
     { id: "thompson", label: "K. Thompson", team: "Warriors" },
@@ -33,7 +37,7 @@ const TEAM_COLORS: Record<string, string> = {
 const getTeamColor = (team: string): string =>
     TEAM_COLORS[team] || TEAM_COLORS.default;
 
-const TeamGraph: React.FC = () => {
+const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const svgRef = useRef<SVGSVGElement>(null);
     const simulationRef = useRef<d3.Simulation<PlayerNode, undefined> | null>(null);

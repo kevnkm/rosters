@@ -33,7 +33,7 @@ const League: React.FC = () => {
                     className={`absolute inset-0 touch-none ${isPointerMode ? "cursor-default" : "cursor-move"
                         }`}
                 >
-                    <TeamGraph />
+                    <TeamGraph isPointerMode={isPointerMode} />
                 </div>
 
                 {/* Season carousel + controls */}
