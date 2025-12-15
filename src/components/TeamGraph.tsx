@@ -1,49 +1,110 @@
 // components/TeamGraph.tsx
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 
 type PlayerNode = d3.SimulationNodeDatum & {
     id: string;
     label: string;
     team: string;
+    teamAbbr: string;
 };
 
 interface TeamGraphProps {
     isPointerMode?: boolean;
 }
 
-const NODES: PlayerNode[] = [
-    { id: "curry", label: "S. Curry", team: "Warriors" },
-    { id: "thompson", label: "K. Thompson", team: "Warriors" },
-    { id: "green", label: "D. Green", team: "Warriors" },
-    { id: "wiggins", label: "A. Wiggins", team: "Warriors" },
-    { id: "looney", label: "K. Looney", team: "Warriors" },
-    { id: "lebron", label: "L. James", team: "Lakers" },
-    { id: "davis", label: "A. Davis", team: "Lakers" },
-    { id: "reaves", label: "A. Reaves", team: "Lakers" },
-    { id: "tatum", label: "J. Tatum", team: "Celtics" },
-    { id: "brown", label: "J. Brown", team: "Celtics" },
-];
-
 const RADIUS = 36;
 
-const TEAM_COLORS: Record<string, string> = {
-    Warriors: "#1D428A",
-    Lakers: "#552583",
-    Celtics: "#007A33",
-    default: "#666666",
-};
+const DEFAULT_COLOR = "#666666";
 
-const getTeamColor = (team: string): string =>
-    TEAM_COLORS[team] || TEAM_COLORS.default;
+const DATA_URL = "https://cdn.jsdelivr.net/gh/kevnkm/rosters-data@main/nba/2025-26.json";
+
+interface Athlete {
+    id: string;
+    shortName?: string;
+    fullName: string;
+}
+
+interface Roster {
+    athletes: Athlete[];
+}
+
+interface TeamInfo {
+    abbreviation: string;
+    displayName: string;
+    color: string;
+}
+
+interface TeamData {
+    team_info: TeamInfo;
+    roster: Roster;
+}
+
+interface RosterData {
+    teams: Record<string, TeamData>;
+}
 
 const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const svgRef = useRef<SVGSVGElement>(null);
     const simulationRef = useRef<d3.Simulation<PlayerNode, undefined> | null>(null);
 
+    const [nodes, setNodes] = useState<PlayerNode[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
     useEffect(() => {
-        if (!containerRef.current || !svgRef.current) return;
+        const fetchData = async () => {
+            try {
+                const response = await fetch(DATA_URL);
+                if (!response.ok) throw new Error("Failed to fetch roster data");
+                const data: RosterData = await response.json();
+
+                const newNodes: PlayerNode[] = [];
+                const teamColors: Record<string, string> = {}; // key: team name (displayName)
+
+                // Keep only these 5 teams for now
+                const selectedTeams = ["GSW", "LAL", "BOS", "MIA", "PHX"];
+
+                Object.values(data.teams)
+                    .filter((teamData) => selectedTeams.includes(teamData.team_info.abbreviation))
+                    .forEach((teamData) => {
+                        const info = teamData.team_info;
+                        const abbr = info.abbreviation;
+                        const teamName = info.displayName;
+                        const hex = info.color;
+                        const fullHex = hex ? `#${hex.toUpperCase()}` : DEFAULT_COLOR;
+                        teamColors[teamName] = fullHex;
+
+                        teamData.roster.athletes.forEach((athlete) => {
+                            const label = athlete.shortName || athlete.fullName || "Unknown";
+                            newNodes.push({
+                                id: athlete.id,
+                                label,
+                                team: teamName,
+                                teamAbbr: abbr,
+                            });
+                        });
+                    });
+
+                // sort nodes or limit if too many (current rosters ~15 players/team → ~450 nodes, acceptable for force graph)
+                setNodes(newNodes);
+
+                // Precompute team colors for getTeamColor
+                (window as any).__teamColors = teamColors; // temporary global for access in d3
+            } catch (err) {
+                console.error(err);
+                setError("Failed to load NBA roster data.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (loading || error || nodes.length === 0 || !containerRef.current || !svgRef.current) return;
 
         const container = containerRef.current;
         const svg = d3.select(svgRef.current);
@@ -52,7 +113,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
         let { width, height } = getSize();
         svg.attr("width", width).attr("height", height);
 
-        const teams = Array.from(new Set(NODES.map((n) => n.team)));
+        const teams = Array.from(new Set(nodes.map((n) => n.team)));
 
         const calculateTeamCenters = (
             teamList: string[],
@@ -75,12 +136,15 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
             }, {} as Record<string, { x: number; y: number }>);
         };
 
-        // === NODES ===
         let teamCenters = calculateTeamCenters(teams, width, height);
 
+        const getTeamColor = (team: string): string =>
+            (window as any).__teamColors?.[team] || DEFAULT_COLOR;
+
+        // === NODES ===
         const nodeGroup = svg
             .selectAll<SVGGElement, PlayerNode>("g.node")
-            .data(NODES, d => d.id)
+            .data(nodes, d => d.id)
             .join("g")
             .attr("class", "node cursor-grab");
 
@@ -127,7 +191,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
         // Custom force: attract nodes to their team center
         const teamCenterForce = (strength = 0.08) => {
             return (alpha: number) => {
-                for (const node of NODES) {
+                for (const node of nodes) {
                     const center = teamCenters[node.team];
                     if (!center) continue;
                     node.vx! += (center.x - (node.x ?? 0)) * strength * alpha;
@@ -139,7 +203,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
         // Custom force: gently clamp nodes from drifting too far from their team
         const MAX_DISTANCE_FROM_CENTER = 220;
         const clampForce = () => {
-            for (const node of NODES) {
+            for (const node of nodes) {
                 const center = teamCenters[node.team];
                 if (!center || node.x === undefined || node.y === undefined) continue;
 
@@ -157,7 +221,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
 
         // === SIMULATION ===
         const simulation = d3
-            .forceSimulation<PlayerNode>(NODES)
+            .forceSimulation<PlayerNode>(nodes)
             .force("charge", d3.forceManyBody().strength(-80))
             .force("collision", d3.forceCollide(RADIUS + 10))
             .force("team-center", teamCenterForce())
@@ -183,7 +247,15 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
             window.removeEventListener("resize", handleResize);
             simulation.stop();
         };
-    }, []);
+    }, [nodes, loading, error]);
+
+    if (loading) {
+        return <div className="w-full h-full flex items-center justify-center text-gray-500">Loading NBA rosters...</div>;
+    }
+
+    if (error) {
+        return <div className="w-full h-full flex items-center justify-center text-red-500">{error}</div>;
+    }
 
     return (
         <div ref={containerRef} className="w-full h-full">
