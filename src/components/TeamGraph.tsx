@@ -14,9 +14,7 @@ interface TeamGraphProps {
 }
 
 const RADIUS = 36;
-
 const DEFAULT_COLOR = "#666666";
-
 const DATA_URL = "https://cdn.jsdelivr.net/gh/kevnkm/rosters-data@main/nba/2025-26.json";
 
 interface Athlete {
@@ -44,7 +42,7 @@ interface RosterData {
     teams: Record<string, TeamData>;
 }
 
-const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
+const TeamGraph: React.FC<TeamGraphProps> = ({ }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const svgRef = useRef<SVGSVGElement>(null);
     const simulationRef = useRef<d3.Simulation<PlayerNode, undefined> | null>(null);
@@ -52,6 +50,9 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
     const [nodes, setNodes] = useState<PlayerNode[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+    // Mutable ref to track dynamic team centers (updated during drag)
+    const teamCentersRef = useRef<Record<string, { x: number; y: number }>>({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -61,10 +62,9 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
                 const data: RosterData = await response.json();
 
                 const newNodes: PlayerNode[] = [];
-                const teamColors: Record<string, string> = {}; // key: team name (displayName)
+                const teamColors: Record<string, string> = {};
 
-                // Keep only these 5 teams for now
-                const selectedTeams = ["GSW", "LAL", "BOS", "MIA", "PHX"];
+                const selectedTeams = ["GS", "LAL", "BOS", "MIA", "PHX", "MIL", "NYK"];
 
                 Object.values(data.teams)
                     .filter((teamData) => selectedTeams.includes(teamData.team_info.abbreviation))
@@ -87,11 +87,8 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
                         });
                     });
 
-                // sort nodes or limit if too many (current rosters ~15 players/team → ~450 nodes, acceptable for force graph)
                 setNodes(newNodes);
-
-                // Precompute team colors for getTeamColor
-                (window as any).__teamColors = teamColors; // temporary global for access in d3
+                (window as any).__teamColors = teamColors;
             } catch (err) {
                 console.error(err);
                 setError("Failed to load NBA roster data.");
@@ -115,28 +112,36 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
 
         const teams = Array.from(new Set(nodes.map((n) => n.team)));
 
-        const calculateTeamCenters = (
+        const calculateInitialTeamCenters = (
             teamList: string[],
             w: number,
             h: number
         ): Record<string, { x: number; y: number }> => {
             const centerX = w / 2;
             const centerY = h / 2;
+            const spacing = Math.min(w, h) * 0.4;
 
-            const baseRadius = Math.min(w, h) * 0.35;
-            const radius = baseRadius * Math.max(0.6, 1 - (teamList.length - 2) * 0.05);
+            const positions = [
+                { x: 0, y: 0 },
+                { x: spacing, y: 0 },
+                { x: spacing / 2, y: (spacing * Math.sqrt(3)) / 1 },
+                { x: -spacing / 2, y: (spacing * Math.sqrt(3)) / 1 },
+                { x: -spacing, y: 0 },
+                { x: 0, y: -spacing },
+                { x: spacing / 2, y: -(spacing * Math.sqrt(3)) / 1 },
+            ].slice(0, teamList.length);
 
             return teamList.reduce((acc, team, i) => {
-                const angle = (i / teamList.length) * 2 * Math.PI - Math.PI / 2;
                 acc[team] = {
-                    x: centerX + radius * Math.cos(angle),
-                    y: centerY + radius * Math.sin(angle),
+                    x: centerX + positions[i].x,
+                    y: centerY + positions[i].y,
                 };
                 return acc;
             }, {} as Record<string, { x: number; y: number }>);
         };
 
-        let teamCenters = calculateTeamCenters(teams, width, height);
+        // Initialize team centers
+        teamCentersRef.current = calculateInitialTeamCenters(teams, width, height);
 
         const getTeamColor = (team: string): string =>
             (window as any).__teamColors?.[team] || DEFAULT_COLOR;
@@ -179,11 +184,24 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
             .on("drag", (event, d) => {
                 d.fx = event.x;
                 d.fy = event.y;
+
+                // NEW: When dragging, move the entire team's center to follow the dragged node
+                const center = teamCentersRef.current[d.team];
+                if (center) {
+                    center.x = event.x;
+                    center.y = event.y;
+                }
+
+                // Optional: slightly increase simulation heat to make cluster follow smoothly
+                simulationRef.current?.alphaTarget(0.5);
             })
             .on("end", (event, d) => {
                 if (!event.active) simulationRef.current?.alphaTarget(0);
                 d.fx = null;
                 d.fy = null;
+
+                // Fade back to normal simulation
+                simulationRef.current?.alphaTarget(0);
             });
 
         nodeGroup.call(drag);
@@ -192,10 +210,12 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
         const teamCenterForce = (strength = 0.08) => {
             return (alpha: number) => {
                 for (const node of nodes) {
-                    const center = teamCenters[node.team];
+                    const center = teamCentersRef.current[node.team];
                     if (!center) continue;
-                    node.vx! += (center.x - (node.x ?? 0)) * strength * alpha;
-                    node.vy! += (center.y - (node.y ?? 0)) * strength * alpha;
+                    node.vx ??= 0;
+                    node.vy ??= 0;
+                    node.vx += (center.x - (node.x ?? 0)) * strength * alpha;
+                    node.vy += (center.y - (node.y ?? 0)) * strength * alpha;
                 }
             };
         };
@@ -204,7 +224,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
         const MAX_DISTANCE_FROM_CENTER = 220;
         const clampForce = () => {
             for (const node of nodes) {
-                const center = teamCenters[node.team];
+                const center = teamCentersRef.current[node.team];
                 if (!center || node.x === undefined || node.y === undefined) continue;
 
                 const dx = node.x - center.x;
@@ -213,10 +233,12 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
 
                 if (dist > MAX_DISTANCE_FROM_CENTER) {
                     const pullStrength = (dist - MAX_DISTANCE_FROM_CENTER) * 0.15;
-                    node.vx! -= (dx / dist) * pullStrength;
-                    node.vy! -= (dy / dist) * pullStrength;
+                    node.vx ??= 0;
+                    node.vy ??= 0;
+                    node.vx -= (dx / dist) * pullStrength;
+                    node.vy -= (dy / dist) * pullStrength;
                 }
-            };
+            }
         };
 
         // === SIMULATION ===
@@ -237,7 +259,10 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
             ({ width, height } = getSize());
             svg.attr("width", width).attr("height", height);
 
-            teamCenters = calculateTeamCenters(teams, width, height);
+            // Recalculate initial centers on resize, but preserve any user-dragged offsets
+            const newBaseCenters = calculateInitialTeamCenters(teams, width, height);
+            // Optionally merge with current (dragged) positions — here we reset for simplicity
+            teamCentersRef.current = newBaseCenters;
             simulation.alpha(0.5).restart();
         };
 
