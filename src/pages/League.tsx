@@ -1,8 +1,6 @@
-import React, { useState } from "react";
 import NavBar from "@/components/NavBar";
 // import SeasonCarousel from "@/components/SeasonCarousel";
 import TeamGraph from "@/components/TeamGraph";
-import { Pointer, Move } from 'lucide-react';
 
 // const AVAILABLE_SEASONS = [
 //     "2018-19",
@@ -20,8 +18,6 @@ const League: React.FC = () => {
     //     AVAILABLE_SEASONS[AVAILABLE_SEASONS.length - 1]
     // );
 
-    const [isPointerMode, setIsPointerMode] = useState(true);
-
     return (
         <div className="min-h-screen bg-background flex flex-col">
             <NavBar />
@@ -30,15 +26,14 @@ const League: React.FC = () => {
             <div className="relative flex-1">
                 {/* Apply conditional cursor directly to the graph container */}
                 <div
-                    className={`absolute inset-0 touch-none ${isPointerMode ? "cursor-default" : "cursor-move"
-                        }`}
+                    className={"absolute inset-0 touch-none"}
                 >
-                    <TeamGraph isPointerMode={isPointerMode} />
+                    <TeamGraph />
                 </div>
 
                 {/* Season carousel + controls */}
-                <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center gap-4 bg-background/80 backdrop-blur-sm px-6 py-3 rounded-lg shadow-md">
-                    {/* <SeasonCarousel
+                {/* <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center gap-4 bg-background/80 backdrop-blur-sm px-6 py-3 rounded-lg shadow-md">
+                    <SeasonCarousel
                         seasons={AVAILABLE_SEASONS}
                         selectedSeason={selectedSeason}
                         onSelect={setSelectedSeason}
@@ -50,34 +45,8 @@ const League: React.FC = () => {
                         <span className="text-2xl font-bold text-blue-700 dark:text-blue-400 flex-1 text-center">
                             {selectedSeason}
                         </span>
-                    </div> */}
-                    {/* Mode Toggle */}
-                    <button
-                        onClick={() => setIsPointerMode(!isPointerMode)}
-                        className="flex items-center gap-3 px-5 py-2 bg-muted/70 hover:bg-muted border border-border rounded-full transition-all duration-200"
-                        aria-label="Toggle interaction mode"
-                    >
-                        <span className="text-sm font-medium text-muted-foreground">
-                            Mode:
-                        </span>
-
-                        {/* Icon with emphasis on Move mode */}
-                        <div className="relative">
-                            {isPointerMode ? (
-                                <Pointer className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                            ) : (
-                                <Move
-                                    className="h-6 w-6 text-blue-600 dark:text-blue-400"
-                                    strokeWidth={2.5}
-                                />
-                            )}
-                        </div>
-
-                        <span className={"text-xs font-medium whitespace-nowrap transition-colors text-blue-600 dark:text-blue-400"}>
-                            {isPointerMode ? "Select" : "Move"}
-                        </span>
-                    </button>
-                </div>
+                    </div>
+                </div> */}
             </div>
         </div>
     );

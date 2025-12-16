@@ -42,9 +42,10 @@ interface RosterData {
     teams: Record<string, TeamData>;
 }
 
-const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
+const TeamGraph: React.FC<TeamGraphProps> = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const svgRef = useRef<SVGSVGElement>(null);
+    const gRef = useRef<SVGGElement>(null);
     const simulationRef = useRef<d3.Simulation<PlayerNode, undefined> | null>(null);
     const [nodes, setNodes] = useState<PlayerNode[]>([]);
     const [loading, setLoading] = useState(true);
@@ -52,9 +53,9 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
 
     // Base fixed centers (hexagonal layout, recalculated on resize)
     const baseTeamCentersRef = useRef<Record<string, { x: number; y: number }>>({});
-    // User-defined offset per team (only modified when dragging a node in pointer mode)
+    // User-defined offset per team
     const teamOffsetRef = useRef<Record<string, { x: number; y: number }>>({});
-    // Global pan offset (only used and modified in pan mode: isPointerMode=false)
+    // Global pan offset
     const globalOffsetRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
     // Effective center = base + teamOffset + globalOffset
@@ -113,10 +114,11 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
     }, []);
 
     useEffect(() => {
-        if (loading || error || nodes.length === 0 || !containerRef.current || !svgRef.current) return;
+        if (loading || error || nodes.length === 0 || !containerRef.current || !svgRef.current || !gRef.current) return;
 
         const container = containerRef.current;
         const svg = d3.select(svgRef.current);
+        const contentG = d3.select(gRef.current);
 
         const getSize = () => container.getBoundingClientRect();
         let { width, height } = getSize();
@@ -160,12 +162,11 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
             (window as any).__teamColors?.[team] || DEFAULT_COLOR;
 
         // === NODES ===
-        const nodeGroup = svg
+        const nodeGroup = contentG
             .selectAll<SVGGElement, PlayerNode>("g.node")
             .data(nodes, (d) => d.id)
             .join("g")
-            .attr("class", "node")
-            .classed("cursor-grab", isPointerMode);
+            .attr("class", "node");
 
         nodeGroup
             .selectAll("circle")
@@ -223,55 +224,36 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
         nodeGroup.on(".drag", null);
         svg.on(".drag", null);
 
-        if (isPointerMode) {
-            // Pointer mode: drag individual nodes → move only that team
-            const drag = d3
-                .drag<SVGGElement, PlayerNode>()
-                .on("start", (event, d) => {
-                    if (!event.active) simulationRef.current?.alphaTarget(0.3).restart();
-                    d.fx = d.x;
-                    d.fy = d.y;
-                })
-                .on("drag", (event, d) => {
-                    d.fx = event.x;
-                    d.fy = event.y;
+        // Drag individual nodes → move only that team
+        const drag = d3
+            .drag<SVGGElement, PlayerNode>()
+            .on("start", (event, d) => {
+                if (!event.active) simulationRef.current?.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            })
+            .on("drag", (event, d) => {
+                d.fx = event.x;
+                d.fy = event.y;
 
-                    // Update only this team's offset
-                    const base = baseTeamCentersRef.current[d.team];
-                    if (base) {
-                        teamOffsetRef.current[d.team] = {
-                            x: event.x - base.x - globalOffsetRef.current.x,
-                            y: event.y - base.y - globalOffsetRef.current.y,
-                        };
-                    }
-                    simulationRef.current?.alphaTarget(0.5);
-                })
-                .on("end", (event, d) => {
-                    if (!event.active) simulationRef.current?.alphaTarget(0);
-                    d.fx = null;
-                    d.fy = null;
-                });
+                // Update only this team's offset
+                const base = baseTeamCentersRef.current[d.team];
+                if (base) {
+                    teamOffsetRef.current[d.team] = {
+                        x: event.x - base.x - globalOffsetRef.current.x,
+                        y: event.y - base.y - globalOffsetRef.current.y,
+                    };
+                }
+                simulationRef.current?.alphaTarget(0.5);
+            })
+            .on("end", (event, d) => {
+                if (!event.active) simulationRef.current?.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            });
 
-            nodeGroup.call(drag);
-        } else {
-            // Pan mode: drag anywhere → move global offset
-            const panDrag = d3
-                .drag<SVGSVGElement, unknown>()
-                .on("start", () => {
-                    svg.attr("cursor", "grabbing");
-                })
-                .on("drag", (event) => {
-                    globalOffsetRef.current.x += event.dx;
-                    globalOffsetRef.current.y += event.dy;
-                    simulationRef.current?.alpha(0.5).restart();
-                })
-                .on("end", () => {
-                    svg.attr("cursor", "grab");
-                });
+        nodeGroup.call(drag);
 
-            svg.call(panDrag);
-            svg.attr("cursor", "grab");
-        }
 
         // === SIMULATION ===
         const simulation = d3
@@ -287,6 +269,15 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
 
         simulationRef.current = simulation;
 
+        // === ZOOM BEHAVIOR ===
+        const zoom = d3.zoom<SVGSVGElement, unknown>()
+            .scaleExtent([0.5, 4]) // Reasonable zoom limits
+            .on("zoom", (event) => {
+                contentG.attr("transform", event.transform.toString());
+            });
+
+        svg.call(zoom);
+
         const handleResize = () => {
             ({ width, height } = getSize());
             svg.attr("width", width).attr("height", height);
@@ -300,7 +291,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
             window.removeEventListener("resize", handleResize);
             simulation.stop();
         };
-    }, [nodes, loading, error, isPointerMode]);
+    }, [nodes, loading, error]);
 
     if (loading) {
         return <div className="w-full h-full flex items-center justify-center text-gray-500">Loading NBA rosters...</div>;
@@ -312,7 +303,9 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ isPointerMode = true }) => {
 
     return (
         <div ref={containerRef} className="w-full h-full">
-            <svg ref={svgRef} className="w-full h-full" />
+            <svg ref={svgRef} className="w-full h-full">
+                <g ref={gRef} />
+            </svg>
         </div>
     );
 };
