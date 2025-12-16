@@ -7,6 +7,7 @@ type PlayerNode = d3.SimulationNodeDatum & {
     label: string;
     team: string;
     teamAbbr: string;
+    jersey?: string;
 };
 
 interface TeamGraphProps {
@@ -21,6 +22,7 @@ interface Athlete {
     id: string;
     shortName?: string;
     fullName: string;
+    jersey?: string;
 }
 
 interface Roster {
@@ -96,6 +98,7 @@ const TeamGraph: React.FC<TeamGraphProps> = () => {
                                 label,
                                 team: teamName,
                                 teamAbbr: info.abbreviation,
+                                jersey: athlete.jersey,
                             });
                         });
                     });
@@ -168,6 +171,7 @@ const TeamGraph: React.FC<TeamGraphProps> = () => {
             .join("g")
             .attr("class", "node");
 
+        // Background circle
         nodeGroup
             .selectAll("circle")
             .data((d) => [d])
@@ -178,14 +182,35 @@ const TeamGraph: React.FC<TeamGraphProps> = () => {
             .attr("stroke-width", 2)
             .attr("opacity", 0.9);
 
+        // Jersey number
         nodeGroup
-            .selectAll("text")
+            .selectAll("text.jersey")
             .data((d) => [d])
             .join("text")
+            .attr("class", "jersey")
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "middle")
+            .attr("fill", "#ffffff")
+            .attr("fill-opacity", 0.20)
+            .attr("font-size", "48px")
+            .attr("font-weight", "900")
+            .attr("pointer-events", "none")
+            .attr("user-select", "none")
+            .text((d) => d.jersey ?? "");
+
+        // Player name/label on top
+        nodeGroup
+            .selectAll("text.label")
+            .data((d) => [d])
+            .join("text")
+            .attr("class", "label")
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "middle")
             .attr("fill", "#fff")
-            .attr("class", "text-[11px] font-semibold pointer-events-none select-none")
+            .attr("font-size", "11px")
+            .attr("font-weight", "600")
+            .attr("pointer-events", "none")
+            .attr("user-select", "none")
             .text((d) => d.label);
 
         // Custom force: attract to effective team center
@@ -253,7 +278,6 @@ const TeamGraph: React.FC<TeamGraphProps> = () => {
             });
 
         nodeGroup.call(drag);
-
 
         // === SIMULATION ===
         const simulation = d3
