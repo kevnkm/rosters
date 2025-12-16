@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="src/assets/clipboard-svgrepo-com.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roster Tracker</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+        if (window.location.pathname.startsWith('/rosters')) {
+            const relativePath = window.location.pathname.slice('/rosters'.length) + window.location.search + window.location.hash;
+            if (relativePath !== '/' && relativePath !== '/index.html') {
+                window.location.replace('/rosters/' + relativePath);
+            }
+        }
+    </script>
+</body>
+
+</html>
