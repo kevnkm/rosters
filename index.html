@@ -6,6 +6,24 @@
   <link rel="icon" href="src/assets/clipboard-svgrepo-com.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Roster Tracker</title>
+
+  <!-- GitHub Pages SPA redirect handler -->
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get("redirect");
+
+      if (redirect) {
+        // Ensure basename is preserved
+        const base = "/rosters";
+        const target =
+          redirect.startsWith(base) ? redirect : base + redirect;
+
+        window.history.replaceState(null, "", target);
+      }
+    })();
+  </script>
+
 </head>
 
 <body>
