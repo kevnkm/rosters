@@ -5,6 +5,7 @@ import * as d3 from "d3";
 type PlayerNode = d3.SimulationNodeDatum & {
     id: string;
     label: string;
+    fullName: string;
     team: string;
     teamAbbr: string;
     jersey?: string;
@@ -107,6 +108,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                             newNodes.push({
                                 id: athlete.id,
                                 label,
+                                fullName: athlete.fullName,
                                 team: teamName,
                                 teamAbbr: info.abbreviation,
                                 jersey: athlete.jersey,
@@ -134,6 +136,21 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
         const container = containerRef.current;
         const svg = d3.select(svgRef.current);
         const contentG = d3.select(gRef.current);
+        const tooltip = d3.select("body")
+            .append("div")
+            .attr("id", "player-tooltip")
+            .style("position", "absolute")
+            .style("background", "rgba(0,0,0,0.92)")
+            .style("color", "#fff")
+            .style("padding", "10px 14px")
+            .style("border-radius", "8px")
+            .style("font-size", "15px")
+            .style("font-weight", "700")
+            .style("pointer-events", "none")
+            .style("z-index", "10000")
+            .style("box-shadow", "0 4px 12px rgba(0,0,0,0.4)")
+            .style("opacity", "0")
+            .style("transition", "opacity 0.2s ease");
 
         const getSize = () => container.getBoundingClientRect();
         let { width, height } = getSize();
@@ -276,6 +293,32 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
             .attr("pointer-events", "none")
             .text((d) => d.label);
 
+        // === TOOLTIP HANDLERS ===
+        nodeGroup
+            .on("mouseenter", function (event, d) {
+                tooltip
+                    .html(`
+                        <div style="text-align:center;">
+                        <div style="font-size:18px;">${d.jersey ? `#${d.jersey}` : ""} ${d.fullName}</div>
+                        <div style="font-size:13px; opacity:0.8; margin-top:4px;">${d.team}</div>
+                        </div>
+                    `)
+                    .style("left", `${event.pageX + 20}px`)
+                    .style("top", `${event.pageY - 15}px`)
+                    .transition()
+                    .duration(150)
+                    .style("opacity", "1");
+            })
+            .on("mousemove", function (event) {
+                tooltip
+                    .style("left", `${event.pageX + 20}px`)
+                    .style("top", `${event.pageY - 15}px`);
+            })
+            .on("mouseleave", () => {
+                tooltip.transition().duration(200).style("opacity", "0");
+            })
+            .style("cursor", "pointer");
+
         // === FORCES ===
         const teamCenterForce = (strength = 0.08) => {
             return (alpha: number) => {
@@ -374,6 +417,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
         return () => {
             window.removeEventListener("resize", handleResize);
             simulation.stop();
+            d3.select("#player-tooltip").remove();
         };
     }, [nodes, loading, error]); // Dependencies unchanged
 
