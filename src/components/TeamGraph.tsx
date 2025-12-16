@@ -52,6 +52,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
     const svgRef = useRef<SVGSVGElement>(null);
     const gRef = useRef<SVGGElement>(null);
     const simulationRef = useRef<d3.Simulation<PlayerNode, undefined> | null>(null);
+
     const [nodes, setNodes] = useState<PlayerNode[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -97,7 +98,6 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                         const hex = info.color;
                         const fullHex = hex ? `#${hex.toUpperCase()}` : DEFAULT_COLOR;
                         teamColors[teamName] = fullHex;
-
                         const altHex = info.alternateColor
                             ? `#${info.alternateColor.toUpperCase()}`
                             : DEFAULT_ALTERNATE;
@@ -136,6 +136,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
         const container = containerRef.current;
         const svg = d3.select(svgRef.current);
         const contentG = d3.select(gRef.current);
+
         const tooltip = d3.select("body")
             .append("div")
             .attr("id", "player-tooltip")
@@ -170,7 +171,6 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
 
         // === RE-CREATE DEFS FOR GRADIENTS ===
         const defs = svg.append("defs");
-
         teams.forEach((team) => {
             const gradId = `gradient-${team.replace(/\s+/g, '-')}`;
             const color = getTeamColor(team);
@@ -201,6 +201,10 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
         });
 
         // === RECALCULATE BASE CENTERS ===
+        const GLOW_RADIUS = 280;
+        const MIN_CENTER_DISTANCE = GLOW_RADIUS * 3;
+        const FIXED_BASE_SPACING = 300;
+
         const calculateBaseTeamCenters = (
             teamList: string[],
             w: number,
@@ -212,14 +216,9 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
 
             if (numTeams === 0) return {};
 
-            // Base spacing scaled to container size
-            // This controls how spread out the clusters are
-            // We use ~35-40% of min dimension for the overall radius when many teams
-            const baseSpacing = Math.min(w, h) * 0.5; // Tuned for good spread (feel free to adjust 0.18-0.25)
-
             const positions: { x: number; y: number }[] = [];
 
-            // 1: Center position
+            // Center position
             positions.push({ x: 0, y: 0 });
 
             if (numTeams === 1) {
@@ -232,17 +231,15 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                     const pointsInRing = 6 * ring;
                     const toAdd = Math.min(pointsInRing, numTeams - placed);
 
-                    // Radius for this ring (distance from center)
-                    // Uses proper hexagonal ring scaling: each ring is farther by baseSpacing * √3 in vertical, but polar approx works well
-                    const radius = ring * baseSpacing;
+                    // Enforce minimum distance by scaling ring radius
+                    const desiredRadius = ring * FIXED_BASE_SPACING;
+                    const minRadiusForThisRing = (ring * MIN_CENTER_DISTANCE) / Math.sqrt(3); // Approx hexagonal min
+                    const radius = Math.max(desiredRadius, minRadiusForThisRing);
 
                     for (let i = 0; i < toAdd; i++) {
-                        // Evenly spaced around the circle, with a 30° offset for nicer hexagonal alignment
-                        const angle = (i / pointsInRing) * 2 * Math.PI + Math.PI / 6;
-
+                        const angle = (i / pointsInRing) * 2 * Math.PI + Math.PI / 6; // 30° offset for hex alignment
                         const px = radius * Math.cos(angle);
                         const py = radius * Math.sin(angle);
-
                         positions.push({ x: px, y: py });
                     }
 
@@ -251,7 +248,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                 }
             }
 
-            // Assign positions to teams
+            // Assign and shift to container center
             return teamList.reduce((acc, team, i) => {
                 const pos = positions[i];
                 acc[team] = {
@@ -271,11 +268,11 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
 
         const glowCircles = teamGlowGroup
             .selectAll<SVGCircleElement, string>("circle.glow")
-            .data(teams, (d) => d) // Key by team name to avoid duplicates
+            .data(teams, (d) => d)
             .join(
                 enter => enter.append("circle")
                     .attr("class", "glow")
-                    .attr("r", 280)
+                    .attr("r", GLOW_RADIUS)
                     .attr("fill", (team) => `url(#gradient-${team.replace(/\s+/g, '-')})`)
                     .attr("pointer-events", "none")
                     .attr("cx", (team) => getEffectiveCenter(team).x)
@@ -367,13 +364,16 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
         };
 
         const MAX_DISTANCE_FROM_CENTER = 220;
+
         const clampForce = () => {
             for (const node of nodes) {
                 const center = getEffectiveCenter(node.team);
                 if (!center || node.x === undefined || node.y === undefined) continue;
+
                 const dx = node.x - center.x;
                 const dy = node.y - center.y;
                 const dist = Math.hypot(dx, dy);
+
                 if (dist > MAX_DISTANCE_FROM_CENTER) {
                     const pullStrength = (dist - MAX_DISTANCE_FROM_CENTER) * 0.15;
                     node.vx ??= 0;
@@ -402,6 +402,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                         y: event.y - base.y - globalOffsetRef.current.y,
                     };
                 }
+
                 simulationRef.current?.alphaTarget(0.5);
             })
             .on("end", (event, d) => {
@@ -421,6 +422,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
             .velocityDecay(0.5)
             .on("tick", () => {
                 nodeGroup.attr("transform", (d) => `translate(${d.x ?? 0},${d.y ?? 0})`);
+
                 glowCircles
                     .attr("cx", (team) => getEffectiveCenter(team).x)
                     .attr("cy", (team) => getEffectiveCenter(team).y);
@@ -441,6 +443,8 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
         const handleResize = () => {
             ({ width, height } = getSize());
             svg.attr("width", width).attr("height", height);
+
+            // Re-calculate only the centering offset
             baseTeamCentersRef.current = calculateBaseTeamCenters(teams, width, height);
             simulation.alpha(0.5).restart();
         };
@@ -453,7 +457,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
             simulation.stop();
             d3.select("#player-tooltip").remove();
         };
-    }, [nodes, loading, error]); // Dependencies unchanged
+    }, [nodes, loading, error]);
 
     if (loading) {
         return <div className="w-full h-full flex items-center justify-center text-gray-500">Loading NBA rosters...</div>;
