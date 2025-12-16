@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import NavBar from "@/components/NavBar";
-import SeasonCarousel from "@/components/SeasonCarousel";
+// import SeasonCarousel from "@/components/SeasonCarousel";
 import TeamGraph from "@/components/TeamGraph";
 import { Pointer, Move } from 'lucide-react';
 
-const AVAILABLE_SEASONS = [
-    "2018-19",
-    "2019-20",
-    "2020-21",
-    "2021-22",
-    "2022-23",
-    "2023-24",
-    "2024-25",
-    "2025-26",
-];
+// const AVAILABLE_SEASONS = [
+//     "2018-19",
+//     "2019-20",
+//     "2020-21",
+//     "2021-22",
+//     "2022-23",
+//     "2023-24",
+//     "2024-25",
+//     "2025-26",
+// ];
 
 const League: React.FC = () => {
-    const [selectedSeason, setSelectedSeason] = useState(
-        AVAILABLE_SEASONS[AVAILABLE_SEASONS.length - 1]
-    );
+    // const [selectedSeason, setSelectedSeason] = useState(
+    //     AVAILABLE_SEASONS[AVAILABLE_SEASONS.length - 1]
+    // );
 
     const [isPointerMode, setIsPointerMode] = useState(true);
 
@@ -38,7 +38,7 @@ const League: React.FC = () => {
 
                 {/* Season carousel + controls */}
                 <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center gap-4 bg-background/80 backdrop-blur-sm px-6 py-3 rounded-lg shadow-md">
-                    <SeasonCarousel
+                    {/* <SeasonCarousel
                         seasons={AVAILABLE_SEASONS}
                         selectedSeason={selectedSeason}
                         onSelect={setSelectedSeason}
@@ -50,7 +50,7 @@ const League: React.FC = () => {
                         <span className="text-2xl font-bold text-blue-700 dark:text-blue-400 flex-1 text-center">
                             {selectedSeason}
                         </span>
-                    </div>
+                    </div> */}
                     {/* Mode Toggle */}
                     <button
                         onClick={() => setIsPointerMode(!isPointerMode)}
