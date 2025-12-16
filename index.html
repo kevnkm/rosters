@@ -12,11 +12,18 @@
     (function () {
       const params = new URLSearchParams(window.location.search);
       const redirect = params.get("redirect");
+
       if (redirect) {
-        window.history.replaceState(null, "", redirect);
+        // Ensure basename is preserved
+        const base = "/rosters";
+        const target =
+          redirect.startsWith(base) ? redirect : base + redirect;
+
+        window.history.replaceState(null, "", target);
       }
     })();
   </script>
+
   <script type="module" crossorigin src="/rosters/assets/index-DZ1iePDh.js"></script>
   <link rel="stylesheet" crossorigin href="/rosters/assets/index-OX5XSVL3.css">
 </head>
