@@ -10,12 +10,9 @@ type PlayerNode = d3.SimulationNodeDatum & {
     jersey?: string;
 };
 
-interface TeamGraphProps {
-    isPointerMode?: boolean; // true (default): drag individual nodes → move own team; false: pan all clusters
-}
-
 const RADIUS = 36;
 const DEFAULT_COLOR = "#666666";
+const DEFAULT_ALTERNATE = "#000000";
 const DATA_URL = "https://cdn.jsdelivr.net/gh/kevnkm/rosters-data@main/nba/2025-26.json";
 
 interface Athlete {
@@ -33,6 +30,7 @@ interface TeamInfo {
     abbreviation: string;
     displayName: string;
     color: string;
+    alternateColor?: string;
 }
 
 interface TeamData {
@@ -44,7 +42,7 @@ interface RosterData {
     teams: Record<string, TeamData>;
 }
 
-const TeamGraph: React.FC<TeamGraphProps> = () => {
+const TeamGraph: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const svgRef = useRef<SVGSVGElement>(null);
     const gRef = useRef<SVGGElement>(null);
@@ -79,6 +77,7 @@ const TeamGraph: React.FC<TeamGraphProps> = () => {
 
                 const newNodes: PlayerNode[] = [];
                 const teamColors: Record<string, string> = {};
+                const teamAlternateColors: Record<string, string> = {};
 
                 const selectedTeams = ["GS", "LAL", "BOS", "MIA", "PHX", "MIL", "NYK"];
 
@@ -90,6 +89,9 @@ const TeamGraph: React.FC<TeamGraphProps> = () => {
                         const hex = info.color;
                         const fullHex = hex ? `#${hex.toUpperCase()}` : DEFAULT_COLOR;
                         teamColors[teamName] = fullHex;
+
+                        const altHex = info.alternateColor ? `#${info.alternateColor.toUpperCase()}` : DEFAULT_ALTERNATE;
+                        teamAlternateColors[teamName] = altHex;
 
                         teamData.roster.athletes.forEach((athlete) => {
                             const label = athlete.shortName || athlete.fullName || "Unknown";
@@ -105,6 +107,7 @@ const TeamGraph: React.FC<TeamGraphProps> = () => {
 
                 setNodes(newNodes);
                 (window as any).__teamColors = teamColors;
+                (window as any).__teamAlternateColors = teamAlternateColors;
             } catch (err) {
                 console.error(err);
                 setError("Failed to load NBA roster data.");
@@ -163,6 +166,50 @@ const TeamGraph: React.FC<TeamGraphProps> = () => {
 
         const getTeamColor = (team: string): string =>
             (window as any).__teamColors?.[team] || DEFAULT_COLOR;
+
+        const getTeamAlternateColor = (team: string): string =>
+            (window as any).__teamAlternateColors?.[team] || DEFAULT_ALTERNATE;
+
+        // === DEFINITIONS FOR GRADIENTS ===
+        const defs = svg.append("defs");
+
+        teams.forEach((team) => {
+            const gradId = `gradient-${team.replace(/\s+/g, '-')}`;
+            const color = getTeamColor(team);
+            const alternateColor = getTeamAlternateColor(team);
+
+            const gradient = defs.append("radialGradient")
+                .attr("id", gradId)
+                .attr("cx", "50%")
+                .attr("cy", "50%")
+                .attr("r", "50%")
+                .attr("fx", "50%")
+                .attr("fy", "50%");
+
+            gradient.append("stop")
+                .attr("offset", "0%")
+                .attr("stop-color", color)
+                .attr("stop-opacity", 1);
+
+            gradient.append("stop")
+                .attr("offset", "100%")
+                .attr("stop-color", alternateColor)
+                .attr("stop-opacity", 0);
+        });
+
+        // === TEAM GLOW CIRCLES (one per team) ===
+        const teamGlowGroup = contentG.append("g").attr("class", "team-glows");
+
+        const glowCircles = teamGlowGroup
+            .selectAll<SVGCircleElement, string>("circle.glow")
+            .data(teams)
+            .join("circle")
+            .attr("class", "glow")
+            .attr("cx", (team) => getEffectiveCenter(team).x)
+            .attr("cy", (team) => getEffectiveCenter(team).y)
+            .attr("r", 280) // Large enough to cover the cluster
+            .attr("fill", (team) => `url(#gradient-${team.replace(/\s+/g, '-')})`)
+            .attr("pointer-events", "none");
 
         // === NODES ===
         const nodeGroup = contentG
@@ -241,7 +288,7 @@ const TeamGraph: React.FC<TeamGraphProps> = () => {
                     node.vx -= (dx / dist) * pullStrength;
                     node.vy -= (dy / dist) * pullStrength;
                 }
-            };
+            }
         };
 
         // === DRAG BEHAVIOR ===
@@ -289,6 +336,11 @@ const TeamGraph: React.FC<TeamGraphProps> = () => {
             .velocityDecay(0.5)
             .on("tick", () => {
                 nodeGroup.attr("transform", (d) => `translate(${d.x ?? 0},${d.y ?? 0})`);
+
+                // Update glow circle positions on every tick
+                glowCircles
+                    .attr("cx", (team) => getEffectiveCenter(team).x)
+                    .attr("cy", (team) => getEffectiveCenter(team).y);
             });
 
         simulationRef.current = simulation;
@@ -314,6 +366,7 @@ const TeamGraph: React.FC<TeamGraphProps> = () => {
         return () => {
             window.removeEventListener("resize", handleResize);
             simulation.stop();
+            defs.remove();
         };
     }, [nodes, loading, error]);
 
