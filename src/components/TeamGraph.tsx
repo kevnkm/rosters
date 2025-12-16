@@ -180,7 +180,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                 .attr("id", gradId)
                 .attr("cx", "50%")
                 .attr("cy", "50%")
-                .attr("r", "70%")
+                .attr("r", "100%")
                 .attr("fx", "50%")
                 .attr("fy", "50%");
 
@@ -190,9 +190,9 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                 .attr("stop-opacity", 0.8);
 
             gradient.append("stop")
-                .attr("offset", "80%")
+                .attr("offset", "30%")
                 .attr("stop-color", alternateColor)
-                .attr("stop-opacity", 0.3);
+                .attr("stop-opacity", 0.8);
 
             gradient.append("stop")
                 .attr("offset", "100%")
