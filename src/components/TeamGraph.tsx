@@ -42,7 +42,11 @@ interface RosterData {
     teams: Record<string, TeamData>;
 }
 
-const TeamGraph: React.FC = () => {
+interface TeamGraphProps {
+    selectedTeamAbbrs?: string[];
+}
+
+const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const svgRef = useRef<SVGSVGElement>(null);
     const gRef = useRef<SVGGElement>(null);
@@ -79,10 +83,13 @@ const TeamGraph: React.FC = () => {
                 const teamColors: Record<string, string> = {};
                 const teamAlternateColors: Record<string, string> = {};
 
-                const selectedTeams = ["GS", "LAL", "BOS", "MIA", "PHX", "MIL", "NYK"];
+                // Use selectedTeamAbbrs if provided, otherwise fall back to default
+                const teamsToShow = selectedTeamAbbrs && selectedTeamAbbrs.length > 0
+                    ? selectedTeamAbbrs
+                    : ["GS", "LAL", "BOS", "MIA", "PHX", "MIL", "NYK"];
 
                 Object.values(data.teams)
-                    .filter((teamData) => selectedTeams.includes(teamData.team_info.abbreviation))
+                    .filter((teamData) => teamsToShow.includes(teamData.team_info.abbreviation))
                     .forEach((teamData) => {
                         const info = teamData.team_info;
                         const teamName = info.displayName;
@@ -90,7 +97,9 @@ const TeamGraph: React.FC = () => {
                         const fullHex = hex ? `#${hex.toUpperCase()}` : DEFAULT_COLOR;
                         teamColors[teamName] = fullHex;
 
-                        const altHex = info.alternateColor ? `#${info.alternateColor.toUpperCase()}` : DEFAULT_ALTERNATE;
+                        const altHex = info.alternateColor
+                            ? `#${info.alternateColor.toUpperCase()}`
+                            : DEFAULT_ALTERNATE;
                         teamAlternateColors[teamName] = altHex;
 
                         teamData.roster.athletes.forEach((athlete) => {
@@ -117,7 +126,7 @@ const TeamGraph: React.FC = () => {
         };
 
         fetchData();
-    }, []);
+    }, [selectedTeamAbbrs]);
 
     useEffect(() => {
         if (loading || error || nodes.length === 0 || !containerRef.current || !svgRef.current || !gRef.current) return;
@@ -132,45 +141,17 @@ const TeamGraph: React.FC = () => {
 
         const teams = Array.from(new Set(nodes.map((n) => n.team)));
 
-        const calculateBaseTeamCenters = (
-            teamList: string[],
-            w: number,
-            h: number
-        ): Record<string, { x: number; y: number }> => {
-            const centerX = w / 2;
-            const centerY = h / 2;
-            const spacing = Math.min(w, h) * 0.4;
-            const positions = [
-                { x: 0, y: 0 },
-                { x: spacing, y: 0 },
-                { x: spacing / 2, y: (spacing * Math.sqrt(3)) / 1 },
-                { x: -spacing / 2, y: (spacing * Math.sqrt(3)) / 1 },
-                { x: -spacing, y: 0 },
-                { x: 0, y: -spacing },
-                { x: spacing / 2, y: -(spacing * Math.sqrt(3)) / 1 },
-            ].slice(0, teamList.length);
-
-            return teamList.reduce((acc, team, i) => {
-                acc[team] = {
-                    x: centerX + positions[i].x,
-                    y: centerY + positions[i].y,
-                };
-                return acc;
-            }, {} as Record<string, { x: number; y: number }>);
-        };
-
-        // Reset base centers and offsets on data/load
-        baseTeamCentersRef.current = calculateBaseTeamCenters(teams, width, height);
-        teamOffsetRef.current = {}; // clear individual team offsets
-        globalOffsetRef.current = { x: 0, y: 0 };
-
         const getTeamColor = (team: string): string =>
             (window as any).__teamColors?.[team] || DEFAULT_COLOR;
 
         const getTeamAlternateColor = (team: string): string =>
             (window as any).__teamAlternateColors?.[team] || DEFAULT_ALTERNATE;
 
-        // === DEFINITIONS FOR GRADIENTS ===
+        // === CLEANUP PREVIOUS CONTENT ===
+        contentG.selectAll("*").remove();
+        svg.selectAll("defs").remove();
+
+        // === RE-CREATE DEFS FOR GRADIENTS ===
         const defs = svg.append("defs");
 
         teams.forEach((team) => {
@@ -182,14 +163,19 @@ const TeamGraph: React.FC = () => {
                 .attr("id", gradId)
                 .attr("cx", "50%")
                 .attr("cy", "50%")
-                .attr("r", "50%")
+                .attr("r", "70%")
                 .attr("fx", "50%")
                 .attr("fy", "50%");
 
             gradient.append("stop")
                 .attr("offset", "0%")
                 .attr("stop-color", color)
-                .attr("stop-opacity", 1);
+                .attr("stop-opacity", 0.8);
+
+            gradient.append("stop")
+                .attr("offset", "80%")
+                .attr("stop-color", alternateColor)
+                .attr("stop-opacity", 0.3);
 
             gradient.append("stop")
                 .attr("offset", "100%")
@@ -197,32 +183,69 @@ const TeamGraph: React.FC = () => {
                 .attr("stop-opacity", 0);
         });
 
-        // === TEAM GLOW CIRCLES (one per team) ===
+        // === RECALCULATE BASE CENTERS ===
+        const calculateBaseTeamCenters = (
+            teamList: string[],
+            w: number,
+            h: number
+        ): Record<string, { x: number; y: number }> => {
+            const centerX = w / 2;
+            const centerY = h / 2;
+            const spacing = Math.min(w, h) * 0.4;
+            const positions = [
+                { x: 0, y: 0 },
+                { x: spacing, y: 0 },
+                { x: spacing / 2, y: (spacing * Math.sqrt(3)) / 2 },
+                { x: -spacing / 2, y: (spacing * Math.sqrt(3)) / 2 },
+                { x: -spacing, y: 0 },
+                { x: -spacing / 2, y: -(spacing * Math.sqrt(3)) / 2 },
+                { x: spacing / 2, y: -(spacing * Math.sqrt(3)) / 2 },
+            ].slice(0, teamList.length);
+
+            return teamList.reduce((acc, team, i) => {
+                acc[team] = {
+                    x: centerX + positions[i].x,
+                    y: centerY + positions[i].y,
+                };
+                return acc;
+            }, {} as Record<string, { x: number; y: number }>);
+        };
+
+        baseTeamCentersRef.current = calculateBaseTeamCenters(teams, width, height);
+        teamOffsetRef.current = {}; // Reset individual offsets
+        globalOffsetRef.current = { x: 0, y: 0 };
+
+        // === TEAM GLOW CIRCLES (BEHIND EVERYTHING) ===
         const teamGlowGroup = contentG.append("g").attr("class", "team-glows");
 
         const glowCircles = teamGlowGroup
             .selectAll<SVGCircleElement, string>("circle.glow")
-            .data(teams)
-            .join("circle")
-            .attr("class", "glow")
-            .attr("cx", (team) => getEffectiveCenter(team).x)
-            .attr("cy", (team) => getEffectiveCenter(team).y)
-            .attr("r", 280) // Large enough to cover the cluster
-            .attr("fill", (team) => `url(#gradient-${team.replace(/\s+/g, '-')})`)
-            .attr("pointer-events", "none");
+            .data(teams, (d) => d) // Key by team name to avoid duplicates
+            .join(
+                enter => enter.append("circle")
+                    .attr("class", "glow")
+                    .attr("r", 280)
+                    .attr("fill", (team) => `url(#gradient-${team.replace(/\s+/g, '-')})`)
+                    .attr("pointer-events", "none")
+                    .attr("cx", (team) => getEffectiveCenter(team).x)
+                    .attr("cy", (team) => getEffectiveCenter(team).y),
+                update => update
+                    .attr("fill", (team) => `url(#gradient-${team.replace(/\s+/g, '-')})`)
+                    .transition().duration(300)
+                    .attr("cx", (team) => getEffectiveCenter(team).x)
+                    .attr("cy", (team) => getEffectiveCenter(team).y),
+                exit => exit.remove()
+            );
 
-        // === NODES ===
-        const nodeGroup = contentG
+        // === NODES (on top of glows) ===
+        const nodeGroup = contentG.append("g").attr("class", "nodes")
             .selectAll<SVGGElement, PlayerNode>("g.node")
             .data(nodes, (d) => d.id)
             .join("g")
             .attr("class", "node");
 
         // Background circle
-        nodeGroup
-            .selectAll("circle")
-            .data((d) => [d])
-            .join("circle")
+        nodeGroup.append("circle")
             .attr("r", RADIUS)
             .attr("fill", (d) => getTeamColor(d.team))
             .attr("stroke", "#fff")
@@ -230,10 +253,7 @@ const TeamGraph: React.FC = () => {
             .attr("opacity", 0.9);
 
         // Jersey number
-        nodeGroup
-            .selectAll("text.jersey")
-            .data((d) => [d])
-            .join("text")
+        nodeGroup.append("text")
             .attr("class", "jersey")
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "middle")
@@ -242,25 +262,21 @@ const TeamGraph: React.FC = () => {
             .attr("font-size", "48px")
             .attr("font-weight", "900")
             .attr("pointer-events", "none")
-            .attr("user-select", "none")
             .text((d) => d.jersey ?? "");
 
-        // Player name/label on top
-        nodeGroup
-            .selectAll("text.label")
-            .data((d) => [d])
-            .join("text")
+        // Player label
+        nodeGroup.append("text")
             .attr("class", "label")
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "middle")
+            .attr("dy", "-4px")
             .attr("fill", "#fff")
             .attr("font-size", "11px")
             .attr("font-weight", "600")
             .attr("pointer-events", "none")
-            .attr("user-select", "none")
             .text((d) => d.label);
 
-        // Custom force: attract to effective team center
+        // === FORCES ===
         const teamCenterForce = (strength = 0.08) => {
             return (alpha: number) => {
                 for (const node of nodes) {
@@ -291,14 +307,8 @@ const TeamGraph: React.FC = () => {
             }
         };
 
-        // === DRAG BEHAVIOR ===
-        // Clear any previous drag handlers
-        nodeGroup.on(".drag", null);
-        svg.on(".drag", null);
-
-        // Drag individual nodes → move only that team
-        const drag = d3
-            .drag<SVGGElement, PlayerNode>()
+        // === DRAG (moves whole team) ===
+        const drag = d3.drag<SVGGElement, PlayerNode>()
             .on("start", (event, d) => {
                 if (!event.active) simulationRef.current?.alphaTarget(0.3).restart();
                 d.fx = d.x;
@@ -308,7 +318,6 @@ const TeamGraph: React.FC = () => {
                 d.fx = event.x;
                 d.fy = event.y;
 
-                // Update only this team's offset
                 const base = baseTeamCentersRef.current[d.team];
                 if (base) {
                     teamOffsetRef.current[d.team] = {
@@ -327,8 +336,7 @@ const TeamGraph: React.FC = () => {
         nodeGroup.call(drag);
 
         // === SIMULATION ===
-        const simulation = d3
-            .forceSimulation<PlayerNode>(nodes)
+        const simulation = d3.forceSimulation<PlayerNode>(nodes)
             .force("charge", d3.forceManyBody().strength(-80))
             .force("collision", d3.forceCollide(RADIUS + 10))
             .force("team-center", teamCenterForce())
@@ -336,8 +344,6 @@ const TeamGraph: React.FC = () => {
             .velocityDecay(0.5)
             .on("tick", () => {
                 nodeGroup.attr("transform", (d) => `translate(${d.x ?? 0},${d.y ?? 0})`);
-
-                // Update glow circle positions on every tick
                 glowCircles
                     .attr("cx", (team) => getEffectiveCenter(team).x)
                     .attr("cy", (team) => getEffectiveCenter(team).y);
@@ -345,15 +351,16 @@ const TeamGraph: React.FC = () => {
 
         simulationRef.current = simulation;
 
-        // === ZOOM BEHAVIOR ===
+        // === ZOOM ===
         const zoom = d3.zoom<SVGSVGElement, unknown>()
-            .scaleExtent([0.5, 4]) // Reasonable zoom limits
+            .scaleExtent([0.5, 4])
             .on("zoom", (event) => {
                 contentG.attr("transform", event.transform.toString());
             });
 
         svg.call(zoom);
 
+        // === RESIZE HANDLER ===
         const handleResize = () => {
             ({ width, height } = getSize());
             svg.attr("width", width).attr("height", height);
@@ -363,12 +370,12 @@ const TeamGraph: React.FC = () => {
 
         window.addEventListener("resize", handleResize);
 
+        // === CLEANUP ===
         return () => {
             window.removeEventListener("resize", handleResize);
             simulation.stop();
-            defs.remove();
         };
-    }, [nodes, loading, error]);
+    }, [nodes, loading, error]); // Dependencies unchanged
 
     if (loading) {
         return <div className="w-full h-full flex items-center justify-center text-gray-500">Loading NBA rosters...</div>;
