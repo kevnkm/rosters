@@ -11,14 +11,6 @@
 <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-        if (window.location.pathname.startsWith('/rosters')) {
-            const relativePath = window.location.pathname.slice('/rosters'.length) + window.location.search + window.location.hash;
-            if (relativePath !== '/' && relativePath !== '/index.html') {
-                window.location.replace('/rosters/' + relativePath);
-            }
-        }
-    </script>
 </body>
 
 </html>
