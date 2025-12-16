@@ -62,17 +62,17 @@ const League: React.FC = () => {
                     <TeamGraph selectedTeamAbbrs={selectedTeams.map((t) => t.value)} />
                 </div>
 
-                {/* Team Selector Panel - Fixed button in upper right */}
-                <div className="absolute top-4 right-4 z-10">
+                {/* Team Selector Panel */}
+                <div className="absolute top-2 sm:top-4 right-2 sm:right-4 left-2 sm:left-auto z-10">
                     <div className="flex items-start justify-end">
-                        {/* Panel - instantly shown or hidden */}
+                        {/* Panel */}
                         {!isMinimized && (
-                            <div className="w-96 mr-3">
-                                <div className="bg-background/90 backdrop-blur-md rounded-lg shadow-xl border border-border py-5 px-6">
-                                    <h3 className="text-sm font-medium mb-4">Team Selector</h3>
+                            <div className="w-full sm:w-96 sm:mr-3">
+                                <div className="bg-background/90 backdrop-blur-md rounded-lg shadow-xl border border-border py-4 sm:py-5 px-4 sm:px-6">
+                                    <h3 className="text-sm font-medium mb-3 sm:mb-4">Team Selector</h3>
 
                                     {loadingTeams ? (
-                                        <div className="text-center py-8 text-muted-foreground">
+                                        <div className="text-center py-6 sm:py-8 text-muted-foreground text-sm">
                                             Loading teams...
                                         </div>
                                     ) : (
@@ -83,7 +83,7 @@ const League: React.FC = () => {
                                                 onChange={setSelectedTeams}
                                                 placeholder="Search teams..."
                                                 emptyIndicator={
-                                                    <p className="text-center text-sm text-muted-foreground py-6">
+                                                    <p className="text-center text-sm text-muted-foreground py-4 sm:py-6">
                                                         No teams found.
                                                     </p>
                                                 }
@@ -91,7 +91,7 @@ const League: React.FC = () => {
                                                 className="w-full"
                                             />
 
-                                            <div className="text-sm text-muted-foreground text-center mt-4">
+                                            <div className="text-xs sm:text-sm text-muted-foreground text-center mt-3 sm:mt-4">
                                                 {selectedTeams.length === 0
                                                     ? "Select teams to display"
                                                     : `${selectedTeams.length} team${selectedTeams.length > 1 ? "s" : ""} selected`}
@@ -105,13 +105,13 @@ const League: React.FC = () => {
                         {/* Toggle Button */}
                         <button
                             onClick={() => setIsMinimized(!isMinimized)}
-                            className="h-12 w-12 flex items-center justify-center bg-background/90 backdrop-blur-md rounded-lg shadow-xl border border-border hover:bg-accent/70 transition-colors"
+                            className="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center bg-background/90 backdrop-blur-md rounded-lg shadow-xl border border-border hover:bg-accent/70 transition-colors flex-shrink-0"
                             aria-label={isMinimized ? "Expand team selector" : "Minimize team selector"}
                         >
                             {isMinimized ? (
-                                <Menu className="h-5 w-5" />
+                                <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
                             ) : (
-                                <X className="h-5 w-5" />
+                                <X className="h-4 w-4 sm:h-5 sm:w-5" />
                             )}
                         </button>
                     </div>
