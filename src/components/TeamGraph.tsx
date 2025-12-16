@@ -84,10 +84,10 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                 const teamColors: Record<string, string> = {};
                 const teamAlternateColors: Record<string, string> = {};
 
-                // Use selectedTeamAbbrs if provided, otherwise fall back to default
+                // Only show teams if selectedTeamAbbrs is provided and has items
                 const teamsToShow = selectedTeamAbbrs && selectedTeamAbbrs.length > 0
                     ? selectedTeamAbbrs
-                    : ["GS", "LAL", "BOS", "MIA", "PHX", "MIL", "NYK"];
+                    : [];
 
                 Object.values(data.teams)
                     .filter((teamData) => teamsToShow.includes(teamData.team_info.abbreviation))
@@ -461,6 +461,11 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
 
     if (error) {
         return <div className="w-full h-full flex items-center justify-center text-red-500">{error}</div>;
+    }
+
+    // Show message when no teams are selected
+    if (nodes.length === 0) {
+        return <div className="w-full h-full flex items-center justify-center text-gray-500">Select teams to visualize</div>;
     }
 
     return (
