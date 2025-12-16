@@ -5,12 +5,16 @@ import { useState, useEffect } from "react";
 
 const DATA_URL = "https://cdn.jsdelivr.net/gh/kevnkm/rosters-data@main/nba/2025-26.json";
 
-const DEFAULT_SELECTED_ABBRS = ["GS", "LAL", "BOS", "MIA", "PHX", "MIL", "NYK"];
-
 const League: React.FC = () => {
     const [teamOptions, setTeamOptions] = useState<Option[]>([]);
     const [selectedTeams, setSelectedTeams] = useState<Option[]>([]);
     const [loadingTeams, setLoadingTeams] = useState(true);
+
+    // Helper to pick N random items from an array
+    const getRandomTeams = (options: Option[], count: number): Option[] => {
+        const shuffled = [...options].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+    };
 
     // Fetch team list from the data URL once on mount
     useEffect(() => {
@@ -30,15 +34,14 @@ const League: React.FC = () => {
 
                 setTeamOptions(options);
 
-                // Set default selected teams
-                const defaultSelected = options.filter((opt) =>
-                    DEFAULT_SELECTED_ABBRS.includes(opt.value)
-                );
-                setSelectedTeams(defaultSelected);
+                // Randomly select 7 teams (or all if fewer than 7)
+                const randomCount = Math.min(7, options.length);
+                const randomSelected = getRandomTeams(options, randomCount);
+                setSelectedTeams(randomSelected);
             } catch (err) {
                 console.error(err);
-                // Fallback to empty (or you could add a hard-coded fallback list)
                 setTeamOptions([]);
+                setSelectedTeams([]);
             } finally {
                 setLoadingTeams(false);
             }
@@ -72,7 +75,6 @@ const League: React.FC = () => {
                                 placeholder="Search teams..."
                                 emptyIndicator={<p className="text-center text-sm text-muted-foreground py-6">No teams found.</p>}
                                 hidePlaceholderWhenSelected={true}
-                                maxSelected={15} // prevent too many clusters
                                 className="w-full"
                             />
                         )}
