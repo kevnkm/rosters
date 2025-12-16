@@ -208,21 +208,55 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
         ): Record<string, { x: number; y: number }> => {
             const centerX = w / 2;
             const centerY = h / 2;
-            const spacing = Math.min(w, h) * 0.4;
-            const positions = [
-                { x: 0, y: 0 },
-                { x: spacing, y: 0 },
-                { x: spacing / 2, y: (spacing * Math.sqrt(3)) / 2 },
-                { x: -spacing / 2, y: (spacing * Math.sqrt(3)) / 2 },
-                { x: -spacing, y: 0 },
-                { x: -spacing / 2, y: -(spacing * Math.sqrt(3)) / 2 },
-                { x: spacing / 2, y: -(spacing * Math.sqrt(3)) / 2 },
-            ].slice(0, teamList.length);
+            const numTeams = teamList.length;
 
+            if (numTeams === 0) return {};
+
+            // Base spacing scaled to container size
+            // This controls how spread out the clusters are
+            // We use ~35-40% of min dimension for the overall radius when many teams
+            const baseSpacing = Math.min(w, h) * 0.5; // Tuned for good spread (feel free to adjust 0.18-0.25)
+
+            const positions: { x: number; y: number }[] = [];
+
+            // 1: Center position
+            positions.push({ x: 0, y: 0 });
+
+            if (numTeams === 1) {
+                // only center
+            } else {
+                let placed = 1;
+                let ring = 1;
+
+                while (placed < numTeams) {
+                    const pointsInRing = 6 * ring;
+                    const toAdd = Math.min(pointsInRing, numTeams - placed);
+
+                    // Radius for this ring (distance from center)
+                    // Uses proper hexagonal ring scaling: each ring is farther by baseSpacing * √3 in vertical, but polar approx works well
+                    const radius = ring * baseSpacing;
+
+                    for (let i = 0; i < toAdd; i++) {
+                        // Evenly spaced around the circle, with a 30° offset for nicer hexagonal alignment
+                        const angle = (i / pointsInRing) * 2 * Math.PI + Math.PI / 6;
+
+                        const px = radius * Math.cos(angle);
+                        const py = radius * Math.sin(angle);
+
+                        positions.push({ x: px, y: py });
+                    }
+
+                    placed += toAdd;
+                    ring += 1;
+                }
+            }
+
+            // Assign positions to teams
             return teamList.reduce((acc, team, i) => {
+                const pos = positions[i];
                 acc[team] = {
-                    x: centerX + positions[i].x,
-                    y: centerY + positions[i].y,
+                    x: centerX + pos.x,
+                    y: centerY + pos.y,
                 };
                 return acc;
             }, {} as Record<string, { x: number; y: number }>);
