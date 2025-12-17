@@ -32,6 +32,7 @@ interface TeamInfo {
     displayName: string;
     color: string;
     alternateColor?: string;
+    logo: string;
 }
 
 interface TeamData {
@@ -84,6 +85,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                 const newNodes: PlayerNode[] = [];
                 const teamColors: Record<string, string> = {};
                 const teamAlternateColors: Record<string, string> = {};
+                const teamLogos: Record<string, string> = {};
 
                 // Only show teams if selectedTeamAbbrs is provided and has items
                 const teamsToShow = selectedTeamAbbrs && selectedTeamAbbrs.length > 0
@@ -102,6 +104,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                             ? `#${info.alternateColor.toUpperCase()}`
                             : DEFAULT_ALTERNATE;
                         teamAlternateColors[teamName] = altHex;
+                        teamLogos[teamName] = info.logo;
 
                         teamData.roster.athletes.forEach((athlete) => {
                             const label = athlete.shortName || athlete.fullName || "Unknown";
@@ -119,6 +122,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                 setNodes(newNodes);
                 (window as any).__teamColors = teamColors;
                 (window as any).__teamAlternateColors = teamAlternateColors;
+                (window as any).__teamLogos = teamLogos;
             } catch (err) {
                 console.error(err);
                 setError("Failed to load NBA roster data.");
@@ -164,6 +168,9 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
 
         const getTeamAlternateColor = (team: string): string =>
             (window as any).__teamAlternateColors?.[team] || DEFAULT_ALTERNATE;
+
+        const getTeamLogo = (team: string): string =>
+            (window as any).__teamLogos?.[team] || "";
 
         // === CLEANUP PREVIOUS CONTENT ===
         contentG.selectAll("*").remove();
@@ -285,7 +292,26 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                 exit => exit.remove()
             );
 
-        // === NODES (on top of glows) ===
+        // === TEAM LOGOS ===
+        const LOGO_SIZE = 360;
+
+        const logoGroup = contentG.append("g").attr("class", "team-logos");
+
+        const logos = logoGroup
+            .selectAll<SVGImageElement, string>("image.logo")
+            .data(teams, (d) => d)
+            .join("image")
+            .attr("class", "logo")
+            .attr("href", getTeamLogo)
+            .attr("x", (team) => getEffectiveCenter(team).x - LOGO_SIZE / 2)
+            .attr("y", (team) => getEffectiveCenter(team).y - LOGO_SIZE / 2)
+            .attr("width", LOGO_SIZE)
+            .attr("height", LOGO_SIZE)
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .attr("opacity", 0.18)
+            .attr("pointer-events", "none")
+
+        // === NODES (on top of glows and logos) ===
         const nodeGroup = contentG.append("g").attr("class", "nodes")
             .selectAll<SVGGElement, PlayerNode>("g.node")
             .data(nodes, (d) => d.id)
@@ -426,6 +452,10 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                 glowCircles
                     .attr("cx", (team) => getEffectiveCenter(team).x)
                     .attr("cy", (team) => getEffectiveCenter(team).y);
+
+                logos
+                    .attr("x", (team) => getEffectiveCenter(team).x - LOGO_SIZE / 2)
+                    .attr("y", (team) => getEffectiveCenter(team).y - LOGO_SIZE / 2);
             });
 
         simulationRef.current = simulation;
