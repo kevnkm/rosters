@@ -64,6 +64,8 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
     const teamOffsetRef = useRef<Record<string, { x: number; y: number }>>({});
     // Global pan offset
     const globalOffsetRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+    // Target offsets for smooth snapping/swapping animation
+    const targetTeamOffsetsRef = useRef<Record<string, { x: number; y: number } | null>>({});
 
     // Effective center = base + teamOffset + globalOffset
     const getEffectiveCenter = (team: string) => {
@@ -207,11 +209,31 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                 .attr("stop-opacity", 0);
         });
 
-        // === RECALCULATE BASE CENTERS ===
+        // === HEX GRID PARAMETERS ===
+        const GRID_SPACING = 400;
         const GLOW_RADIUS = 280;
-        const MIN_CENTER_DISTANCE = GLOW_RADIUS * 3;
-        const FIXED_BASE_SPACING = 300;
 
+        // Generate all possible grid points (relative to center)
+        const generateGridPoints = (maxRings = 20): { x: number; y: number }[] => {
+            const points: { x: number; y: number }[] = [{ x: 0, y: 0 }];
+
+            for (let ring = 1; ring <= maxRings; ring++) {
+                const pointsInRing = 6 * ring;
+                const radius = ring * GRID_SPACING;
+                for (let i = 0; i < pointsInRing; i++) {
+                    const angle = (i / pointsInRing) * 2 * Math.PI + Math.PI / 6;
+                    points.push({
+                        x: radius * Math.cos(angle),
+                        y: radius * Math.sin(angle),
+                    });
+                }
+            }
+            return points;
+        };
+
+        const allGridPointsRel = generateGridPoints();
+
+        // === RECALCULATE BASE CENTERS (same as grid) ===
         const calculateBaseTeamCenters = (
             teamList: string[],
             w: number,
@@ -219,58 +241,22 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
         ): Record<string, { x: number; y: number }> => {
             const centerX = w / 2;
             const centerY = h / 2;
-            const numTeams = teamList.length;
 
-            if (numTeams === 0) return {};
-
-            const positions: { x: number; y: number }[] = [];
-
-            // Center position
-            positions.push({ x: 0, y: 0 });
-
-            if (numTeams === 1) {
-                // only center
-            } else {
-                let placed = 1;
-                let ring = 1;
-
-                while (placed < numTeams) {
-                    const pointsInRing = 6 * ring;
-                    const toAdd = Math.min(pointsInRing, numTeams - placed);
-
-                    // Enforce minimum distance by scaling ring radius
-                    const desiredRadius = ring * FIXED_BASE_SPACING;
-                    const minRadiusForThisRing = (ring * MIN_CENTER_DISTANCE) / Math.sqrt(3); // Approx hexagonal min
-                    const radius = Math.max(desiredRadius, minRadiusForThisRing);
-
-                    for (let i = 0; i < toAdd; i++) {
-                        const angle = (i / pointsInRing) * 2 * Math.PI + Math.PI / 6; // 30° offset for hex alignment
-                        const px = radius * Math.cos(angle);
-                        const py = radius * Math.sin(angle);
-                        positions.push({ x: px, y: py });
-                    }
-
-                    placed += toAdd;
-                    ring += 1;
-                }
-            }
-
-            // Assign and shift to container center
             return teamList.reduce((acc, team, i) => {
-                const pos = positions[i];
+                const rel = allGridPointsRel[i];
                 acc[team] = {
-                    x: centerX + pos.x,
-                    y: centerY + pos.y,
+                    x: centerX + rel.x,
+                    y: centerY + rel.y,
                 };
                 return acc;
             }, {} as Record<string, { x: number; y: number }>);
         };
 
         baseTeamCentersRef.current = calculateBaseTeamCenters(teams, width, height);
-        teamOffsetRef.current = {}; // Reset individual offsets
-        globalOffsetRef.current = { x: 0, y: 0 };
+        teamOffsetRef.current = {}; // Reset offsets
+        targetTeamOffsetsRef.current = {};
 
-        // === TEAM GLOW CIRCLES (BEHIND EVERYTHING) ===
+        // === TEAM GLOW CIRCLES ===
         const teamGlowGroup = contentG.append("g").attr("class", "team-glows");
 
         const glowCircles = teamGlowGroup
@@ -285,7 +271,6 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                     .attr("cx", (team) => getEffectiveCenter(team).x)
                     .attr("cy", (team) => getEffectiveCenter(team).y),
                 update => update
-                    .attr("fill", (team) => `url(#gradient-${team.replace(/\s+/g, '-')})`)
                     .transition().duration(300)
                     .attr("cx", (team) => getEffectiveCenter(team).x)
                     .attr("cy", (team) => getEffectiveCenter(team).y),
@@ -309,9 +294,9 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
             .attr("height", LOGO_SIZE)
             .attr("preserveAspectRatio", "xMidYMid meet")
             .attr("opacity", 0.18)
-            .attr("pointer-events", "none")
+            .attr("pointer-events", "none");
 
-        // === NODES (on top of glows and logos) ===
+        // === NODES ===
         const nodeGroup = contentG.append("g").attr("class", "nodes")
             .selectAll<SVGGElement, PlayerNode>("g.node")
             .data(nodes, (d) => d.id)
@@ -350,7 +335,7 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
             .attr("pointer-events", "none")
             .text((d) => d.label);
 
-        // === TOOLTIP HANDLERS ===
+        // === TOOLTIP ===
         nodeGroup
             .on("mouseenter", function (event, d) {
                 tooltip
@@ -376,20 +361,42 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
             })
             .style("cursor", "pointer");
 
-        // === FORCES ===
-        const teamCenterForce = (strength = 0.08) => {
-            return (alpha: number) => {
-                for (const node of nodes) {
-                    const center = getEffectiveCenter(node.team);
-                    node.vx ??= 0;
-                    node.vy ??= 0;
-                    node.vx += (center.x - (node.x ?? 0)) * strength * alpha;
-                    node.vy += (center.y - (node.y ?? 0)) * strength * alpha;
+        // === SNAP TO NEAREST GRID POINT ===
+        const getNearestGridPoint = (relX: number, relY: number): { x: number; y: number } => {
+            let best = allGridPointsRel[0];
+            let minDist = Math.hypot(relX, relY);
+
+            for (const p of allGridPointsRel) {
+                const dist = Math.hypot(relX - p.x, relY - p.y);
+                if (dist < minDist) {
+                    minDist = dist;
+                    best = p;
                 }
-            };
+            }
+            return best;
         };
 
+        // === FORCES ===
         const MAX_DISTANCE_FROM_CENTER = 220;
+
+        const teamCenterForce = (alpha: number) => {
+            const animatingTeams = new Set(
+                Object.keys(targetTeamOffsetsRef.current).filter(
+                    (t) => targetTeamOffsetsRef.current[t] !== null
+                )
+            );
+
+            for (const node of nodes) {
+                const isAnimating = animatingTeams.has(node.team);
+                const strength = isAnimating ? 0.35 : 0.08;
+
+                const center = getEffectiveCenter(node.team);
+                node.vx ??= 0;
+                node.vy ??= 0;
+                node.vx += (center.x - (node.x ?? 0)) * strength * alpha;
+                node.vy += (center.y - (node.y ?? 0)) * strength * alpha;
+            }
+        };
 
         const clampForce = () => {
             for (const node of nodes) {
@@ -410,12 +417,15 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
             }
         };
 
-        // === DRAG (moves whole team) ===
+        // === DRAG ===
         const drag = d3.drag<SVGGElement, PlayerNode>()
             .on("start", (event, d) => {
                 if (!event.active) simulationRef.current?.alphaTarget(0.3).restart();
                 d.fx = d.x;
                 d.fy = d.y;
+
+                // Cancel any ongoing animation
+                targetTeamOffsetsRef.current[d.team] = null;
             })
             .on("drag", (event, d) => {
                 d.fx = event.x;
@@ -435,6 +445,66 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
                 if (!event.active) simulationRef.current?.alphaTarget(0);
                 d.fx = null;
                 d.fy = null;
+
+                // === SNAP / SWAP LOGIC ===
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const draggedTeam = d.team;
+                const currentCenter = getEffectiveCenter(draggedTeam);
+                const relX = currentCenter.x - centerX;
+                const relY = currentCenter.y - centerY;
+
+                const nearestGridRel = getNearestGridPoint(relX, relY);
+                const proposedAbs = {
+                    x: centerX + nearestGridRel.x,
+                    y: centerY + nearestGridRel.y,
+                };
+
+                // Find if any other team is close to this grid point
+                let occupyingTeam: string | null = null;
+                let minDist = Infinity;
+                for (const t of teams) {
+                    if (t === draggedTeam) continue;
+                    const tCenter = getEffectiveCenter(t);
+                    const dist = Math.hypot(tCenter.x - proposedAbs.x, tCenter.y - proposedAbs.y);
+                    if (dist < 180 && dist < minDist) { // Threshold ~60% of spacing
+                        minDist = dist;
+                        occupyingTeam = t;
+                    }
+                }
+
+                let targetAbsDragged: { x: number; y: number };
+                let targetAbsOther: { x: number; y: number } | null = null;
+                let otherTeam: string | null = null;
+
+                if (occupyingTeam) {
+                    // Swap: dragged goes to occupier's current position
+                    targetAbsDragged = getEffectiveCenter(occupyingTeam);
+                    targetAbsOther = currentCenter; // other goes to where dragged was
+                    otherTeam = occupyingTeam;
+                } else {
+                    // Simple snap
+                    targetAbsDragged = proposedAbs;
+                }
+
+                // Set targets
+                const baseDragged = baseTeamCentersRef.current[draggedTeam];
+                targetTeamOffsetsRef.current[draggedTeam] = {
+                    x: targetAbsDragged.x - baseDragged.x - globalOffsetRef.current.x,
+                    y: targetAbsDragged.y - baseDragged.y - globalOffsetRef.current.y,
+                };
+
+                if (otherTeam && targetAbsOther) {
+                    const baseOther = baseTeamCentersRef.current[otherTeam];
+                    targetTeamOffsetsRef.current[otherTeam] = {
+                        x: targetAbsOther.x - baseOther.x - globalOffsetRef.current.x,
+                        y: targetAbsOther.y - baseOther.y - globalOffsetRef.current.y,
+                    };
+                }
+
+                simulationRef.current?.alpha(1).restart();
             });
 
         nodeGroup.call(drag);
@@ -443,10 +513,32 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
         const simulation = d3.forceSimulation<PlayerNode>(nodes)
             .force("charge", d3.forceManyBody().strength(-80))
             .force("collision", d3.forceCollide(RADIUS + 10))
-            .force("team-center", teamCenterForce())
+            .force("team-center", teamCenterForce)
             .force("clamp", clampForce)
             .velocityDecay(0.5)
             .on("tick", () => {
+                // Ease offsets toward targets
+                Object.keys(targetTeamOffsetsRef.current).forEach((team) => {
+                    const target = targetTeamOffsetsRef.current[team];
+                    if (!target) return;
+
+                    const current = teamOffsetRef.current[team] || { x: 0, y: 0 };
+                    const dx = target.x - current.x;
+                    const dy = target.y - current.y;
+                    const dist = Math.hypot(dx, dy);
+
+                    if (dist < 3) {
+                        teamOffsetRef.current[team] = target;
+                        targetTeamOffsetsRef.current[team] = null;
+                    } else {
+                        const ease = 0.28;
+                        teamOffsetRef.current[team] = {
+                            x: current.x + dx * ease,
+                            y: current.y + dy * ease,
+                        };
+                    }
+                });
+
                 nodeGroup.attr("transform", (d) => `translate(${d.x ?? 0},${d.y ?? 0})`);
 
                 glowCircles
@@ -474,7 +566,6 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
             ({ width, height } = getSize());
             svg.attr("width", width).attr("height", height);
 
-            // Re-calculate only the centering offset
             baseTeamCentersRef.current = calculateBaseTeamCenters(teams, width, height);
             simulation.alpha(0.5).restart();
         };
@@ -497,7 +588,6 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
         return <div className="w-full h-full flex items-center justify-center text-red-500">{error}</div>;
     }
 
-    // Show message when no teams are selected
     if (nodes.length === 0) {
         return <div className="w-full h-full flex items-center justify-center text-gray-500">Select teams to visualize</div>;
     }
