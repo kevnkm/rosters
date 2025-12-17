@@ -317,9 +317,10 @@ const TeamGraph: React.FC<TeamGraphProps> = ({ selectedTeamAbbrs }) => {
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "middle")
             .attr("fill", "#ffffff")
-            .attr("fill-opacity", 0.20)
-            .attr("font-size", "48px")
-            .attr("font-weight", "900")
+            .attr("fill-opacity", 0.30)
+            .attr("font-size", "42px")
+            .attr("font-family", "'Alfa Slab One', Impact, 'Arial Black', Arial, sans-serif")
+            .attr("font-weight", "400")
             .attr("pointer-events", "none")
             .text((d) => d.jersey ?? "");
 
